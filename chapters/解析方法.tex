@@ -1,0 +1,46 @@
+\chapter{解析方法}
+この章では、\ref{chap2}章を踏まえてデータの解析方法を説明する。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{ベイズ推定の基礎}
+本研究では解析にベイズ推定(Bayesian Estimation)を用いている。ベイズ推定では、事後確率分布(Posterior probability distribution)は事前分布(Prior probability distribution)、尤度(Likelihood)を用いて次のように書ける。
+\begin{align}
+	事後分布 &= \frac{事前分布 \times 尤度}{観測値の分布} \\
+			&\propto 事前分布 \times 尤度
+\end{align}
+観測値の分布は確率の形に戻す(正規化する)ための定数と考えると、事前分布 と尤度が重要なパラメータとなる。最尤推定法(Maximum Likelihood Estimation)は事前分布に一様分布を仮定しており尤度だけから真の値を推定するが、ベイズ推定では任意の事前分布をかけている。すると、$一様分布 \times 尤度$の確率分布の最頻値(尤度が最大の値)が最尤推定量となる。一方ベイズ推定では1つの値で はなく確率分布で与えられる。
+
+ベイズ推定として最も広く使われる解析手法がマルコフ連鎖モンテカルロ法(Markov chain Monte Carlo methods; MCMC)である。マルコフ連鎖を利用したモンテカルロ法を用いると、データの分布を計算せずに直接事後分布を求めることができる。マルコフ連鎖(Markov chain)とは、ひとつのステップの中で前の状態に基づいて次の状態を作り出すことをいう。また一般に、乱数を用いた計算アルゴリズムをモンテカルロ法(Monte Carlo method)と呼ぶ(カジノで有名なためにこう名付けられたという。ラスベガス法という別の方法も存在する)。
+
+モンテカルロ法は、真にランダムにサンプリングを行うため
+\begin{itemize}
+	\item{計算コストがかさむ}
+	\item{精度が向上しない}
+\end{itemize}
+という課題がある。MCMCは、マルコフ連鎖を定常分布としたサンプリングを行うことで、上記課題を改善した方法である。
+
+MCMCのアルゴリズムは以下の通りである。
+\begin{enumerate}
+	\item{初期点を決める}
+	\item{マルコフ連鎖により次のサンプリングを行う分布を決定する}
+	\item{分布が収束をするまで、2を繰り返す}
+\end{enumerate}
+基本的なアルゴリズムはこのようなものであるが、さらに具体的なアルゴリズムにはいくつかの方法があり、付録で触れることとする。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{解析に用いる尤度関数}
+MCMCによる解析では尤度関数を定義する必要がある。ここでは、本研究の解析における基本的なフィッティングパラメータ$A,B,C,K,U_{\odot},V_{\odot},W_{\odot},s_{\mu_l},s_{\mu_b},s_{v_{\mathrm{los}}}$の10個のときの尤度関数を求める。$s_{\mu_l},s_{\mu_b},s_{v_{\mathrm{los}}}$はそれぞれ$\mu_l,\mu_b,v_{\mathrm{los}}$の分散を表す。このとき尤度関数$\mathcal{L}$は
+\begin{align}
+\begin{aligned}
+	\ln \mathcal{L} =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_l^i - \mu_l(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2\right] \right. \\
+	& = \left. \frac{\left[\mu_b^i - \mu_b(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2\right] \right. \\
+	&= \left. \frac{\left[v_{\mathrm{los}}^i - v_{\mathrm{los}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los}}}^i)^2} + {\rm ln}\left[\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los}}}^i)^2\right] \right)
+\end{aligned}
+\end{align}
+と書ける。ここで、添字の$^i$は$i$番目の星の値であることを示し、この添字があるパラメータは観測量である。
+
+

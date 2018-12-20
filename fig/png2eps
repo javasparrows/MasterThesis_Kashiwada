@@ -1,0 +1,2 @@
+#!/bin/sh
+for file in *.png; do convert $file ${file/png/eps}; done
