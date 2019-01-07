@@ -1,28 +1,18 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-from scipy.stats import norm
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import animation
-import sys
-import galpy
-from galpy.util.bovy_coords import XYZ_to_lbd 
 
 k = 4.74047
-#A,B,C,K,u0,v0,w0 = 15.300,-11.900,-3.200,-5.300,11.100,12.240,7.250
-#A,B,C,K,u0,v0,w0 = 17.0,-12.0,-3.0,-1.0,9.6,14.0,7.2
+
 Rd = 3    #kpc
 zd = 0.3  #kpc
-R0 = 8.27 # kpc
+R0 = 8.2 # kpc
 
-#generate_number_list = [20580,205800,2058000,7692000]
-#generate_number_list = [3000,30000,300000,3000000]
-p_list = [15.,-8,-4.,-2.,10.,15.,7.5]
+p_list = [18.,-11,-2.,-1.,9.,11.,7.5]
 generate_number_list = [100,1000*3,10000,100000]
 stars_number_list = ['1e2','1e3','1e4','1e5']
 sigma_list = ['sigma1','sigma2','sigma3','sigma4','sigma5']
+VE_list = [0,10,20,30,40]
 
+#velocity dispersion for stellar ages from Yu&Liu(2018)
 sigma_array = np.array([
 [21.7,12.0,8.6],
 [21.4,16.7,10.1],
@@ -37,7 +27,7 @@ sigma_array = np.array([
 [43.8,24.2,23.3],
 [51.8,25.8,23.3]])
 
-def MockGenerate(N,sigma_number,stars_number,data_number):
+def MockGenerate(N,sigma_number,stars_number,data_number,lv_deg):
     '''
     p_list = [[17.0,0,0,0,0,0,0], 
               [0,-12.0,0,0,0,0,0], 
@@ -94,6 +84,9 @@ def MockGenerate(N,sigma_number,stars_number,data_number):
     b = b[index]
     N = np.sum(index)
 
+    #b = np.full(N, 0.)
+    #plx = np.random.rand(N)*100
+    #D = 1./plx
     sin_l = np.sin(l)
     cos_l = np.cos(l)
     sin_twol = np.sin(2.*l)
@@ -116,6 +109,7 @@ def MockGenerate(N,sigma_number,stars_number,data_number):
     cos_a = (1.-sin_a**2.)**0.5
 
     vcirc = R0*(A-B)
+
     ###### convert from astrometric to plar coordinates
     vx = -sin_l*vl - cos_l*sin_b*vb + cos_l*cos_b*rv + u0
     vy =  cos_l*vl - sin_l*sin_b*vb + sin_l*cos_b*rv + (v0+vcirc)
@@ -128,17 +122,26 @@ def MockGenerate(N,sigma_number,stars_number,data_number):
     ###### add velocity dispersion
     sigma_vR_value = np.random.normal(0., sigma_vR, N)
     vR = vR + sigma_vR_value - np.mean(sigma_vR_value)
+    #vasym = np.mean(vR**2.)/80. # km/s
+    #vasym = np.var(vR)/80. # km/s
+    #print('vasym = ',np.round(np.mean(vasym),3))
 
     sigma_vphi_value = np.random.normal(0., sigma_vphi, N)
-    vphi = vphi + sigma_vphi_value - np.mean(sigma_vphi_value)
-
+    vphi = vphi + sigma_vphi_value - np.mean(sigma_vphi_value)# - vasym
     sigma_vz_value = np.random.normal(0., sigma_vz, N)
     vz = vz + sigma_vz_value - np.mean(sigma_vz_value)
 
-    vasym = np.mean(vR**2.)/80. # km/s
-    #vasym = np.var(vR)/80. # km/s
-    print('vasym = ',np.round(np.mean(vasym),3))
-    vphi = vphi - vasym
+    ######### Velocity Ellipsoid #########
+    lv = lv_deg*np.pi/180.
+    sigma_vR_value_VE = np.cos(lv)*sigma_vR_value - np.sin(lv)*sigma_vphi_value
+    sigma_vphi_value_VE = np.sin(lv)*sigma_vR_value + np.cos(lv)*sigma_vphi_value
+
+    vR = vR + sigma_vR_value_VE
+    vphi = vphi + sigma_vphi_value_VE 
+    vz = vz + sigma_vz_value
+
+    #vasym = np.mean(vR**2.)/80. # km/s
+    #vphi = vphi - vasym
 
     ###### change coordinate
     vx =  cos_a*vR + sin_a*vphi - u0
@@ -152,7 +155,7 @@ def MockGenerate(N,sigma_number,stars_number,data_number):
     ######
     pml = vl/D#/k
     pmb = vb/D#/k
-    l = l*180./np.pi# - 180.
+    l = l*180./np.pi
     b = b*180./np.pi
 
     l_a = np.linspace(0.,2.*np.pi,2000)
@@ -165,6 +168,15 @@ def MockGenerate(N,sigma_number,stars_number,data_number):
     cos_b_a = np.cos(b_a)
     D_a = np.random.rand(2000)*0.9 + 0.1
     plx_a = 1./D_a
+
+    pml_a = (A*cos_twol_a-C*sin_twol_a+B)*cos_b_a+plx_a*(u0*sin_l_a-v0*cos_l_a)
+    pmb_a = -(A*sin_twol_a+C*cos_twol_a+K)*sin_b_a*cos_b_a+sin_b_a*plx_a*(u0*cos_l_a+v0*sin_l_a)-w0*plx_a*cos_b_a
+    rv_a = (K + C*cos_twol_a + A*sin_twol_a)*cos_b_a**2/plx_a - ((u0*cos_l_a + v0*sin_l_a)*cos_b_a + w0*sin_b_a)
+
+    l_a = l_a*180./np.pi
+    b_a = b_a*180./np.pi
+
+    idx_b = np.argsort(b_a)
 
     pml = pml/k
     pmb = pmb/k
@@ -183,7 +195,7 @@ def MockGenerate(N,sigma_number,stars_number,data_number):
 
     data = np.array([plx,l,b,pml,pmb,rv,error_plx,error_pml,error_pmb,error_rv]).T
     filename = 'data/MockData_'+'sigma'+str(sigma_number+1)+'_'+stars_number_list[stars_number]\
-              +'stars_'+str(data_number)+'.dat'
+              +'stars_'+'VE'+str(lv_deg)+'_'+str(data_number)+'.dat'
     np.savetxt(filename,data)
 
     vRvphi_sigma = np.mean((vR-np.mean(vR))*(vphi-np.mean(vphi)))
@@ -195,11 +207,11 @@ def MockGenerate(N,sigma_number,stars_number,data_number):
 
 def main():
     for m in range(10):
-        for j in range(1):
-            for i in range(len(sigma_array)):
-                j = 1
-                N = generate_number_list[j]
-                MockGenerate(N,i,j,m)
+        for j in range(4):
+            for ii in range(len(VE_list)):
+                for i in range(len(sigma_array)):
+                    N = generate_number_list[j]
+                    MockGenerate(N,i,j,m,VE_list[ii])
 
 if __name__ == '__main__':
     main()

@@ -26,21 +26,23 @@
 \usepackage{multirow}
 \usepackage{float} %図を入れるときに何々する
 \usepackage{grffile} %デフォルトでmultidotがtrue
+\usepackage{siunitx} %SI単位（国際単位系）を出力する
+
 
 %余白の設定。
 %\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
 
-%% 高さの設定
-\setlength{\textheight}{\paperheight}   % ひとまず紙面を本文領域に
-\setlength{\topmargin}{-0.4truemm}      % 上の余白を20mm(=1inch-5.4mm)に
-\addtolength{\topmargin}{-\headheight}  % 
-\addtolength{\topmargin}{-\headsep}     % ヘッダの分だけ本文領域を移動させる
-\addtolength{\textheight}{-40truemm}    % 下の余白も20mmに
-%% 幅の設定
-\setlength{\textwidth}{\paperwidth}     % ひとまず紙面を本文領域に
-\setlength{\oddsidemargin}{-5.4truemm}  % 左の余白を20mm(=1inch-5.4mm)に
-\setlength{\evensidemargin}{-5.4truemm} % 
-\addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
+% 高さの設定
+% \setlength{\textheight}{\paperheight}   % ひとまず紙面を本文領域に
+% \setlength{\topmargin}{3.6truemm}      % 上の余白を29mm(=1inch-5.4mm)に
+% \addtolength{\topmargin}{-\headheight}  % 
+% \addtolength{\topmargin}{-\headsep}     % ヘッダの分だけ本文領域を移動させる
+% \addtolength{\textheight}{-50truemm}    % 下の余白も25mmに
+% %% 幅の設定
+% \setlength{\textwidth}{\paperwidth}     % ひとまず紙面を本文領域に
+% \setlength{\oddsidemargin}{-5.4truemm}  % 左の余白を20mm(=1inch-5.4mm)に
+% \setlength{\evensidemargin}{-5.4truemm} % 
+% \addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
 
 \usepackage{tablefootnote} % use footnote in table
 
@@ -55,6 +57,7 @@
 \citestyle{aa}
 
 \renewcommand{\labelenumi}{(\arabic{enumi}) } %enumerate環境を1. 2.の形式から(1) (2)の形式へ変更（文書全体）。
+\renewcommand{\appendixname}{付録 }
 
 \usepackage{mathrsfs}
 
@@ -86,7 +89,9 @@
     tabsize=2
 }
 
-
+% 余白の調整
+\usepackage{geometry}
+\geometry{left=25truemm,right=25truemm,top=30truemm,bottom=25truemm}
  
 \lstset{style=mystyle}
 
@@ -105,7 +110,7 @@
 %%
 \newcolumntype{.}{D{.}{.}{-1}}
 
-\renewcommand\arraystretch{1.1} %% ちょっとkansoku
+\renewcommand\arraystretch{1.1}
 
 \input{chapters/表紙} %「表紙.tex」というファイルを同じディレクトリ上においておくこと。
 %
@@ -117,9 +122,9 @@
  %本文は章や節ごとに分割して別々のファイルにして管理し、\input{}で挿入していくのがよいだろう。
 \mainmatter
 
-\input{chapters/研究背景.tex}
+\input{chapters/概要.tex}
+\input{chapters/イントロダクション.tex}
 \input{chapters/基礎理論.tex}
-\input{chapters/解析方法.tex}
 \input{chapters/模擬データによる定量評価.tex}
 \input{chapters/観測データ解析.tex}
 \input{chapters/まとめと議論.tex}
@@ -128,7 +133,7 @@
 \chapter*{謝辞}
 本論文は、東京大学大学院理学系研究科天文学専攻修士課程/国立天文台JASMINE検討室に在籍中の研究成果をまとめたものである。私がこの修士論文を作成するに至るこの2年間、数多くの方々に迷惑をかけ、また助けていただいた。
 
-第一に指導教員である郷田直輝教授には指導教官として本研究の実施の機会を与えていただき、その遂行にあたって終始ご指導をいただいた。在籍中の非礼をお詫び申し上げるとともに、ゼミなどでは多くのことをご指導いただき深く感謝申し上げる。国立天文台JASMINE検討室の馬場淳一特任研究員には本研究のあらゆる点でご指導をいただいた。日々の議論における鋭い指摘とアドバイスに私は感嘆するばかりであった。最後まで粘り強く指導してくださったことに深く感謝申し上げる。同専攻の小林尚人准教授には主査としてご助言を戴くとともに本論文の細部にわたりご指導をいただいた。ここに深い感謝の意を表する。本研究の解析方法について、国立天文台JASMINE検討室の矢野太平助教には本研究の各所で有益なご助言をいただき、また日々の研究室での生活において助けていただいた。ここに同氏への感謝の意を表する。同専攻の熊本淳研究員には修士課程1年次での1年間、友人であり先輩として研究に関するアドバイスだけでなく、彼の存在は研究室生活の心の支えとなった。同氏に深く感謝申し上げる。University College Londonの河田大介教授には、観測データの扱いについてご助言をいただき、ここに感謝の意を表する。ミシガン州立大学の服部公平氏には、解析方法についてのご助言をいただいき、ここに感謝申し上げる。東京大学数理科学研究科の渡邉聡氏には、本研究の理論的な理解においてご助言をいただき、感謝申し上げたい。また、後輩である片岡叡氏との日常生活に関する会話や彼の存在は、修士課程2年次の1年間の研究室生活を楽しいものにした。同氏に感謝申し上げる。
+第一に指導教員である郷田直輝教授には指導教官として本研究の実施の機会を与えていただき、その遂行にあたって終始ご指導をいただいた。在籍中の非礼をお詫び申し上げるとともに、ゼミなどでは多くのことをご指導いただき深く感謝申し上げる。国立天文台JASMINE検討室の馬場淳一特任研究員には本研究のあらゆる点でご指導をいただいた。日々の議論における鋭い指摘とアドバイスに私は感嘆するばかりであった。最後まで粘り強く指導してくださったことに深く感謝申し上げる。本研究の解析方法について、国立天文台JASMINE検討室の矢野太平助教には本研究の各所で有益なご助言をいただき、また日々の研究室での生活において助けていただいた。ここに同氏への感謝の意を表する。JASMINE検討室に在籍されていた熊本淳博士には修士課程1年次での1年間、友人であり先輩として研究に関するアドバイスだけでなく、彼の存在は研究室生活の心の支えとなった。同氏に深く感謝申し上げる。University College Londonの河田大介教授には、観測データの扱いについてご助言をいただき、ここに感謝の意を表する。ミシガン州立大学の服部公平博士には、解析方法についてのご助言をいただいき、ここに感謝申し上げる。東京大学総合文化研究科の渡邉聡氏には、本研究の理論的な理解においてご助言をいただき、感謝申し上げたい。また、後輩である片岡叡氏との日常生活に関する会話や彼の存在は、修士課程2年次の1年間の研究室生活を楽しいものにした。同氏に感謝申し上げる。
 
 \appendix
 \input{chapters/付録.tex}

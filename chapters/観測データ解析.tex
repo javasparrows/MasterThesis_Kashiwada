@@ -1,4 +1,4 @@
-\chapter{観測データ解析}
+\chapter{観測データ解析 \label{chapObs}}
 
 % Chap.4　観測データを用いたオールト解析 (仮)
 % 4.1 使用する観測データ
@@ -7,10 +7,18 @@
 % 4.2 観測データの解析結果 (仮)
 
 
-\section{観測データ}
-本研究では\cite{SD18}のカタログを用いて観測データの解析を行っている。このカタログはAPOGEE, Gaia-DSO, GALAH, LAMOST, RAVE, SEGUEの分光サーベイから利用できる分光パラメータとGaia Data Release 2 (DR2)で観測されたデータから約300万天体の距離、質量、年齢についての推定値を含むカタログとなっている。\cite{SD18}はisochrone fitにより分光データから年齢推定を行っており、年齢の不定性はAPOGEEで$\sim 16 \%$(最も正確な分光年齢推定)、GALAHで$\sim 21\%$、LAMOSTで$\sim 25\%$、RAVEとGESで$\sim 40\%$となっている。表\ref{spec_dataset}は彼らがカタログ生成の際に用いた分光データセットの表である。
+% Chap. 4 観測データの解析結果
+% ここもあとで議論しながら整理しましょう。
+% ここの解析ではSgrA*のVLBI観測値である太陽の回転速度をfixしていると思います。
+% この場合、MCMC解析にもちいる尤度関数はChap.3にあったものと変わっていませんか？
+% 違うなら、ここにもちゃんと利用した尤度関数 (解析手法) を書きましょう。
 
+第\ref{chapMock}章では模擬データの解析からasymmetric driftなどの効果の影響を調べた。以上の結果を踏まえて、観測データの解析を行う。\ref{観測データ}では、本論文の解析で用いた観測データについて説明する。\ref{使用するサンプル}では観測データの中から実際に解析で使用するサンプルについて説明する。\ref{観測データの解析結果}では、そのように選んできたサンプルを解析した結果を記述する。
 
+\section{観測データ \label{観測データ}}
+本研究では\cite{SD18}のカタログを用いて観測データの解析を行っている。このカタログはAPOGEE, Gaia-DSO, GALAH, LAMOST, RAVE, SEGUEの分光サーベイから利用できる分光パラメータとGaia Data Release 2 (DR2)で観測されたデータから約300万天体の年齢推定値を含むカタログとなっている。表\ref{spec_dataset}は彼らがカタログ生成の際に用いた分光データセットの表である。図\ref{fig2}は\cite{SD18}で年齢推定をした星の銀河座標系での分布である。
+
+\cite{SD18}は等時曲線フィットにより分光データから年齢推定を行っており、年齢の不定性はAPOGEEで$\sim 16\,\%$(最も正確な分光年齢推定)、GALAHで$\sim 21\,\%$、LAMOSTで$\sim 25\,\%$、RAVEとGESで$\sim 40\,\%$となっている。等時曲線とは、恒星進化の理論から与えられる年齢一定の星をヘルツシュプルング・ラッセル図 (HR図) 上でプロットしたときに結んだ線のことである。この等時曲線を、観測した星のHR図上での分布に対してフィッティングをすることで年齢推定をする方法が等時曲線フィットである。
 \begin{table}[htb]
 \small
 \begin{center}
@@ -37,7 +45,7 @@
 \end{center}
 \end{figure*}
 
-図\ref{mode_plx},\ref{mode_plx-age}はそれぞれ本研究で使用しているサンプルの年周視差$\varpi$ごとのモードと星の年齢$\tau$ごとのモードである。
+図\ref{mode_plx}、\ref{mode_plx-age}はそれぞれ本研究で使用しているサンプルの年周視差$\varpi$ごとのモードと星の年齢$\tau$ごとのモードである。モードが大きすぎるとモードミキシングを起こしてしまうため、モードが大きくないかどうかを確かめる必要がある。例えば、年周視差$\varpi$がモード1を持っていると太陽運動$U_{\odot}、V_{\odot}、W_{\odot}$に、モード2を持っているとオールト定数$A、B、C、K$に影響してしまう。図\ref{mode_plx}の年周視差ごとのモードでは、$0<\varpi<2\,\si{mas}$では1のモードが-50\%、2のモードが約40\%と大きくなっていることがわかる。$2<\varpi<4\,\si{mas}$、$4<\varpi<6\,\si{mas}$でも1、2のモードの絶対値が約20\%以上と比較的大きい。
 
 \begin{figure*}[htbp]
 \begin{center}
@@ -50,7 +58,7 @@
 \begin{figure*}[htbp]
 \begin{center}
 	\includegraphics[width=14cm]{fig/mode_plx-age.pdf}
-	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\ \mathrm{km\ s^{-1}}$以下の星の年齢0 Gyrから9 Gyrまでの0.5 Gyrごとのサンプルの年齢ごとのモード。mはモードの係数である。}
+	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\,\mathrm{km\,s^{-1}}$以下の星の年齢0 Gyrから9 Gyrまでの0.5 Gyrごとのサンプルの年齢ごとのモード。mはモードの係数である。}
 	\label{mode_plx-age}
 \end{center}
 \end{figure*}
@@ -60,7 +68,7 @@
 \begin{figure*}[htbp]
 \begin{center}
 	\includegraphics[width=12cm]{fig/UV/hist_seaborn_2_z0.1kpc.pdf}
-	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\ \mathrm{km\ s^{-1}}$以下の星の年齢50 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
+	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\,\mathrm{km\,s^{-1}}$以下の星の年齢50 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
 	\label{hist_seaborn_50Myr}
 \end{center}
 \end{figure*}
@@ -68,7 +76,7 @@
 \begin{figure*}[htbp]
 \begin{center}
 	\includegraphics[width=12cm]{fig/UV/hist_seaborn_1_z0.1kpc.pdf}
-	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\ \mathrm{km\ s^{-1}}$以下の星の年齢200 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
+	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\,\mathrm{km\,s^{-1}}$以下の星の年齢200 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
 	\label{hist_seaborn_200Myr}
 \end{center}
 \end{figure*}
@@ -76,7 +84,7 @@
 \begin{figure*}[htbp]
 \begin{center}
 	\includegraphics[width=12cm]{fig/UV/hist_seaborn_0_z0.1kpc.pdf}
-	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\ \mathrm{km\ s^{-1}}$以下の星の年齢1 Gyrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
+	\caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\,\mathrm{km\,s^{-1}}$以下の星の年齢1 Gyrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
 	\label{hist_seaborn_1Gyr}
 \end{center}
 \end{figure*}
@@ -95,7 +103,7 @@
 \includegraphics[width=5cm]{fig/UV/300to350Myr_z0.1kpc_hist2d.png}&
 \includegraphics[width=5cm]{fig/UV/350to400Myr_z0.1kpc_hist2d.png}\\
 \end{tabular}
-    \caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\ \mathrm{km\ s^{-1}}$以下の星の年齢50 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
+    \caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\,\mathrm{km\,s^{-1}}$以下の星の年齢50 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
     \label{hist_UV_50Myr}
 \end{figure*}
 
@@ -111,7 +119,7 @@
 \includegraphics[width=5cm]{fig/UV/1.2to1.4Gyr_z0.1kpc_hist2d.png}&
 \includegraphics[width=5cm]{fig/UV/1.4to1.6Gyr_z0.1kpc_hist2d.png}\\
 \end{tabular}
-    \caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\ \mathrm{km\ s^{-1}}$以下の星の年齢200 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
+    \caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\,\mathrm{km\,s^{-1}}$以下の星の年齢200 Myrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
     \label{hist_UV_200Myr}
 \end{figure*}
 
@@ -127,15 +135,15 @@
 \includegraphics[width=5cm]{fig/UV/6to7Gyr_z0.1kpc_hist2d.png}&
 \includegraphics[width=5cm]{fig/UV/7to8Gyr_z0.1kpc_hist2d.png}\\
 \end{tabular}
-    \caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\ \mathrm{km\ s^{-1}}$以下の星の年齢1 Gyrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
+    \caption{太陽から1 kpc以内、年周視差の精度20\%以上、速度の観測誤差$3\,\mathrm{km\,s^{-1}}$以下の星の年齢1 Gyrごとの動径方向速度$U$、方位角方向速度$V$の分布。}
     \label{hist_UV_1Gyr}
 \end{figure*}
 
 
-\subsection{使用するサンプル}
-年周視差の相対誤差は$\varpi/\sigma_{\varpi}>5$として、20 $\%$未満としている(\cite{BJ15})。速度の観測誤差は、$\mu_l,\mu_b,v_{\mathrm{los}},\varpi$の誤差伝播を考慮して3次元速度ベクトル$v_{\mathrm{Total}}$とし、またその誤差も同様に計算して$\sigma_{v_{\mathrm{Total}}}3\mathrm{km\,s^{-1}}$と制限している。本研究で用いているOort-Lindbladモデルは冷たい系を考えているため、薄い円盤星(thin disk star)に適用したい。そのため、金属量[Fe/H]$>-0.2\,\mathrm{dex})$、円盤面からの距離$|z|<100\,\mathrm{pc}$、星の年齢$\tau < 8\,\mathrm{Gyr}$のデータを用いている。星の年齢でサンプルを制限する理由は、サンプル数が少ないことと、分散が非常に大きいためである。図\ref{fig:v_sigma}はサンプルの速度と速度分散のプロットである。0 - 1 Gyrでは2 Gyrより古い星と比べて速度$\overline{V}$と速度分散の各成分で異なる傾向が見られる。表\ref{dataset}は、以上の制限をしたときのサンプル数である。
+\subsection{使用するサンプル \label{使用するサンプル}}
+年周視差の相対誤差は$\varpi/\sigma_{\varpi}>5$として、20 $\%$未満としている(\cite{BJ15})。速度の観測誤差は、$\mu_l,\mu_b,v_{\mathrm{los}},\varpi$の誤差伝播を考慮して3次元速度ベクトル$v_{\mathrm{Total}}$とし、またその誤差も同様に計算して$\sigma_{v_{\mathrm{Total}}}<3\,\mathrm{km\,s^{-1}}$と制限している。本研究で用いているOort-Lindbladモデルは冷たい系を考えているため、薄い円盤星(thin disk star)に適用したい。そのため、金属量[Fe/H]$>-0.2\,\mathrm{dex})$、円盤面からの距離$|z|<100\,\mathrm{pc}$、星の年齢$\tau < 8\,\mathrm{Gyr}$のデータを用いている。星の年齢でサンプルを制限する理由は、サンプル数が少ないことと、分散が非常に大きいためである。図\ref{fig:v_sigma}はサンプルの速度と速度分散のプロットである。0 - 1 Gyrでは2 Gyrより古い星と比べて速度$\overline{V}$と速度分散の各成分で異なる傾向が見られる。表\ref{dataset}は、以上の制限をしたときのサンプル数である。
 
-また、この観測データ解析では太陽から銀河中心までの距離は$R_0 = 8.2\pm 0.1\ \mathrm{kpc}$(\cite{BH2016})としている。また、VLBIの観測(\cite{RB04},\cite{Reid08})からいて座A$^*$に対する太陽の接線速度は$\Omega_{g,\odot} = 30.24 \pm 0.12\ \mathrm{km\ s^{-1}\ kpc^{-1}}$としている。
+また、この観測データ解析では太陽から銀河中心までの距離は$R_0 = 8.2\pm 0.1\ \mathrm{kpc}$(\cite{BH2016})としている。また、VLBIの観測(\cite{RB04},\cite{Reid08})からいて座A$^*$に対する太陽の接線速度は$\Omega_{g,\odot} = 30.24 \pm 0.12\,\mathrm{km\,s^{-1}\ kpc^{-1}}$としている。
 
 
 
@@ -165,12 +173,23 @@
 \end{figure*}
 
 
-\section{観測データの解析結果}
+\section{観測データの解析結果 \label{観測データの解析結果}}
 観測データの解析結果を示す。本研究では、大きく分けてasymmetirc drifを考慮しない従来の観測方程式(\ref{ObsEq})での解析と考慮した観測方程式(\ref{ObsEqAD})の2種類で観測データ解析を行った。
 
-
 \subsection{asymmetric driftを考慮しない解析}
-図\ref{fig:woAD}は観測データにasymmetric driftを考慮しないときの観測方程式(\ref{ObsEq})を用いた解析の結果を示す。オールト定数$A,B$は太陽からの距離$D$の範囲ごとで値が0.5程度変わっている。太陽運動の銀河回転方向$V_{\odot}$は明らかに年齢依存性を持っていることがわかる。その値は0 - 1 Gyrと7 - 8 Gyrで約$6\ \mathrm{km\ s^{-1}}$増えており、1 Gyr増えるごとに約$0.75\ \mathrm{km\ s^{-1}}$増えることになる。また、オールト定数$C$は3 - 4 Gyrから4 - 5 Gyrにかけて$4\ \mathrm{km\ s^{-1}kpc}$減少している。$K$は星の年齢との間に弱い正の相関が見られる。太陽運動$U_{\odot}$は年齢が増加すると値が小さくなる傾向にある。$W_{\odot}$は年齢で大きな違いは見られない。
+フィッティングパラメータは$A、\,B、\,C、\,K、\,U_{\odot}、\,V_{\odot}、\,W_{\odot}、\,\sigma_{\mu_l}、\,\sigma_{\mu_b}、\,\sigma_{v_{\mathrm{los}}}$の10個である。このときの尤度関数を求める。$\sigma_{\mu_l}、\,\sigma_{\mu_b}、\,\sigma_{v_{\mathrm{los}}}$はそれぞれ$\mu_l、\,\mu_b、\,v_{\mathrm{los}}$の平均場からの速度分散を表す。このとき尤度関数$\mathcal{L}$は
+\begin{align}
+\begin{aligned}
+	\ln \mathcal{L} =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_{l,i} - \mu_l^{\mathrm{OL}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2\right] \right. \\
+	&+ \left. \frac{\left[\mu_{b,i} - \mu_b^{\mathrm{OL}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2\right] \right. \\
+	&+ \left. \frac{\left[v_{\mathrm{los},i} - v^{\mathrm{OL}}_{\mathrm{los}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2} + {\rm ln}\left[\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2\right] \right)
+\end{aligned}
+\end{align}
+と書ける。ここで、添字の$i$は$i$番目の星の値であることを示し、観測量である。また、$s_{\mu_{l,i}},s_{\mu_{b,i}},s_{v_{\mathrm{los},i}}$はそれぞれ$\mu_{l,i},\mu_{b,i},v_{\mathrm{los},i}$の観測誤差である。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+図\ref{fig:woAD}は上記のasymmetric driftを考慮しないときの解析を観測データに対して行ったときの結果を示している。オールト定数$A,B$は太陽からの距離$D$の範囲ごとで値が0.5程度変わっている。太陽運動の銀河回転方向$V_{\odot}$は明らかに年齢依存性を持っていることがわかる。その値は0 - 1 Gyrと7 - 8 Gyrで約$6\,\mathrm{km\,s^{-1}}$増えており、1 Gyr増えるごとに約$0.75\,\mathrm{km\,s^{-1}}$増えることになる。また、オールト定数$C$は3 - 4 Gyrから4 - 5 Gyrにかけて$4\ \mathrm{km\,s^{-1}kpc}$減少している。$K$は星の年齢との間に弱い正の相関が見られる。太陽運動$U_{\odot}$は年齢が増加すると値が小さくなる傾向にある。$W_{\odot}$は年齢で大きな違いは見られない。
 
 \begin{figure*}[htbp]
 	\centering
@@ -178,8 +197,109 @@
 	\caption{asymmetric driftを考慮せずに解析したときのオールト定数と太陽運動の値。} \label{fig:woAD}
 \end{figure*}
 
+
+
+
 \subsection{asymmetric driftを考慮した解析}
-asymmetric driftを考慮したときの観測方程式(\ref{ObsEq})を用いた解析の結果を示す。asymmetric driftの式には式\ref{AD244}を使用している。asymmetric driftを考慮した解析では動径方向の密度と速度分散のスケール長$h_R,h_{\sigma}$の制限の仕方で大きく3種類の解析を行っている(表\ref{scalelength})。$h_{\sigma}=2h_R$としている。解析の結果、これら全ての解析に共通して$A,B,U_{\odot},V_{\odot},W_{\odot}$は星の年齢に対して依存性を持っている。特に、$V_{\odot}$ははっきりとした年齢依存性が見られる。$V_{\odot}$の年齢依存性については、asymmetric driftを考慮しない解析と同様の傾向が見られるが、asymmetric driftを考慮した場合よりも全年齢において約$1\ \mathrm{km\ s^{-1}}$小さくなっている。
+フィッティングパラメータは同様に$A、\,B、\,C、\,K、\,U_{\odot}、\,V_{\odot}、\,W_{\odot}、\,\sigma_{\mu_l}、\,\sigma_{\mu_b}、\,\sigma_{v_{\mathrm{los}}}$の10個である。まず、以下の式で解析の準備を行う。
+\begin{align}
+\begin{aligned}
+	D_i &= \varpi_i^{-1}\\
+	R_i &= \sqrt{D_i^2 + R_0^2 - 2D_iR_0\cos{l_i}}\\
+	\sin{a_i} &= \dfrac{D_i}{R_i}\sin{l_i}\\
+	\cos{a_i} &= \sqrt{1 - \sin^2{a_i}}
+\end{aligned}
+\end{align}
+asymmetric driftを考慮するために、銀河中心に対する星と太陽の速度が必要となる。$v_R$の平均値$\overline{v_R}=0$という仮定を用いると、$v_{\mathrm{c}} = R_0(A-B)$と表せる。また、接線速度は
+\begin{align}
+\begin{aligned}
+	v_{l,i} =& \mu_{l,i}\varpi_i \kappa\\
+	v_{b,i} =& \mu_{b,i}\varpi_i \kappa
+\end{aligned}
+\end{align}
+と表せる。円筒座標系の速度は
+\begin{align}
+\begin{aligned}
+	\left(
+	\begin{array}{c}
+	 	v_{R,i}\\
+		v_{\phi,i}\\
+		v_{\mathrm{los},i}
+	\end{array}
+	\right)
+	=& \bf{Q}^{\mathrm{T}} \left[\bf{P}^{\mathrm{T}}
+	\left(
+	\begin{array}{c}
+	 	v_{l,i}\\
+		v_{b,i}\\
+		v_{\mathrm{los},i}
+	\end{array}
+	\right)
+	+\left(
+	\begin{array}{c}
+	 	U_{\odot}\\
+		V_{\odot} + v_{\mathrm{c}}\\
+		W_{\odot}
+	\end{array}
+	\right)
+	\right]
+\end{aligned}
+\end{align}
+と変換される。ここから、$v_R$の標準偏差$\sigma_R$は
+\begin{align}
+\begin{aligned}
+	\sigma_R =& \sqrt{\frac{1}{N}\sum^N_i(v_{R,i} - \overline{v_R})^2}
+\end{aligned}
+\end{align}
+と計算できる。asymmetric drift速度には式(\ref{AD5})を使用する。asymmetric drift速度を銀河座標系に変換すると
+\begin{align}
+\begin{aligned}
+	\left(
+	\begin{array}{c}
+	 	v_{a,l}\\
+		v_{a,b}\\
+		v_{a,\mathrm{los}}
+	\end{array}
+	\right)
+	=& \bf{P} \bf{Q}
+	\left(
+	\begin{array}{c}
+	 	0\\
+		v_a\\
+		0
+	\end{array}
+	\right)
+\end{aligned}
+\end{align}
+のようになる。表記法は\ref{sec_ObsAD}と同様である。
+
+本解析では、$R_0$と銀河中心に対する太陽系の回転角速度$\Omega_{\odot}=V_{\phi,\odot}/R_0$について制限する。制限する値としては、$R_0=8.2\pm0.1\,\si{kpc},\Omega_{\odot}=30.24\pm0.12\,\si{km.s^{-1}.kpc}$である。このとき尤度関数$\mathcal{L}$は
+\begin{align}
+\begin{aligned}
+	\ln \mathcal{L} =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_{l,i} - \mu_l^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2\right] \right. \\
+	&+ \frac{\left[\mu_{b,i} - \mu_b^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2\right] \\
+	&+ \frac{\left[v_{\mathrm{los},i} - v^{\mathrm{AD}}_{\mathrm{los}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2} + {\rm ln}\left[\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2\right]\\
+	&+ \frac{\left(R_0 - R_{0,\mathrm{prior}}\right)^2}{\sigma_{R_{0,\mathrm{prior}}}} + \ln{\sigma_{R_{0,\mathrm{prior}}}}\\
+	&+ \left. \frac{\left(\Omega_{\odot} - \Omega_{\odot,\mathrm{prior}}\right)^2}{\sigma_{\Omega_{\odot,\mathrm{prior}}}} + \ln{\sigma_{\Omega_{\odot,\mathrm{prior}}}} \right]
+\end{aligned}
+\end{align}
+と書ける。添字のpriorは仮定している値の平均値、$\sigma_{\mathrm{prior}}$は仮定している値の標準偏差を示す。すなわち、$R_0$の場合には$R_{0,\mathrm{prior}} = 8.2\,\si{kpc}、\,\sigma_{R_{0,\mathrm{prior}}}=0.1\,\si{kpc}$である。モデルの式については式(\ref{ObsEqAD})を参照。また、スケール長$h_R、h_{\sigma}$も制限する場合には、$R_0、\,\Omega_{\odot}$と同様に
+\begin{align}
+\begin{aligned}
+	\ln \mathcal{L} =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_{l,i} - \mu_l^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2\right] \right. \\
+	&+ \frac{\left[\mu_{b,i} - \mu_b^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2\right] \\
+	&+ \frac{\left[v_{\mathrm{los},i} - v^{\mathrm{AD}}_{\mathrm{los}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2} + {\rm ln}\left[\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2\right]\\
+	&+ \frac{\left(R_0 - R_{0,\mathrm{prior}}\right)^2}{\sigma_{R_{0,\mathrm{prior}}}} + \ln{\sigma_{R_{0,\mathrm{prior}}}}\\
+	&+ \frac{\left(\Omega_{\odot} - \Omega_{\odot,\mathrm{prior}}\right)^2}{\sigma_{\Omega_{\odot,\mathrm{prior}}}} + \ln{\sigma_{\Omega_{\odot,\mathrm{prior}}}}\\
+	&+ \frac{\left(h_R - h_{R,\mathrm{prior}}\right)^2}{\sigma_{h_{R,\mathrm{prior}}}} + \ln{\sigma_{h_{R,\mathrm{prior}}}}\\
+	&+ \left. \frac{\left(h_{\sigma} - h_{\sigma,\mathrm{prior}}\right)^2}{\sigma_{h_{\sigma,\mathrm{prior}}}} + \ln{\sigma_{h_{\sigma,\mathrm{prior}}}} \right)
+\end{aligned}
+\end{align}
+となる。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+asymmetric driftを考慮したときの観測方程式(\ref{ObsEq})を用いた解析の結果を示す。asymmetric driftの式には式\ref{AD2}を使用している。asymmetric driftを考慮した解析では動径方向の密度と速度分散のスケール長$h_R,h_{\sigma}$の制限の仕方で大きく3種類の解析を行っている(表\ref{scalelength})。$h_{\sigma}=2h_R$としている。解析の結果、これら全ての解析に共通して$A,B,U_{\odot},V_{\odot},W_{\odot}$は星の年齢に対して依存性を持っている。特に、$V_{\odot}$ははっきりとした年齢依存性が見られる。$V_{\odot}$の年齢依存性については、asymmetric driftを考慮しない解析と同様の傾向が見られるが、asymmetric driftを考慮した場合よりも全年齢において約$1\,\mathrm{km\,s^{-1}}$小さくなっている。
 
 \begin{table}
 \begin{center}
@@ -336,7 +456,7 @@ asymmetric driftを考慮したときの観測方程式(\ref{ObsEq})を用いた
 \begin{figure*}[htbp]
 \begin{center}
 	\includegraphics[width=15cm]{fig/multi/multi.pdf}
-	\caption{太陽から1 kpc以内のサンプルを使用したときのasymmtric drift無し(no AD)とasymmetric drift有りの各解析のプロット。各線の色と解析方法の対応関係は図の上部に記載している。}
+	\caption{太陽から1 kpc以内のサンプルを使用したときのasymmtric drift無し(no AD)とasymmetric drift有りの各解析のプロット。各線の色と解析方法の対応関係のラベルは図の上部に記載している。解析方法の詳細は表\ref{scalelength}を参照。}
 	\label{multi}
 \end{center}
 \end{figure*}

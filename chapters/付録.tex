@@ -1,354 +1,343 @@
-\chapter{Appendix}
-\begin{comment}
-\section{一様球}
-球内に一様分布する点を生成する際は、体積素を考慮する必要がある。3次元極座標での単位球は、$0<r<1, 0<\theta<\pi, 0<\phi<2\pi$として
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    x = r\sin{\theta}\cos{\phi}\\
-    y = r\sin{\theta}\sin{\phi}\\
-    z = r\cos{\theta}
-    \end{cases}
-\end{aligned}
-\end{align}
-となる。この時の体積素は$dV = r^2\sin{\theta}{\rm d}r{\rm d}\theta{\rm d}\phi$となるから、
-\begin{align}
-\begin{aligned}
-    \int dV =& -\frac{1}{3}r^3 \cos{\theta}\phi\\
-\end{aligned}
-\end{align}
-ここで、座標を
-\begin{align}
-\begin{aligned}
-    (R,\Theta,\phi) = \left(\frac{1}{3}r^3,-\cos{\theta},\phi \right)
-\end{aligned}
-\end{align}
-とすると、それぞれの座標の範囲は$0<R<\frac{1}{3}, -1<\Theta<1, 0<\phi<2\pi$となる。ここで、$\frac{1}{3}r^3 \to r^3, -\cos{\theta} \to \cos{\theta}$すると、
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    r = R^{\frac{1}{3}}  &(0<R<1)\\
-    \theta = \arccos{\Theta}  &(-1<\Theta<1)\\
-    \phi = \phi  &(0<\phi<2\pi)
-    \end{cases}
-\end{aligned}
-\end{align}
-となるから、
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    R  &(0<R<1)\\
-    \Theta  &(-1<\Theta<1)\\
-    \phi  &(0<\phi<2\pi)\\
-    \end{cases}
-    \label{一様球1}
-\end{aligned}
-\end{align}
-を用いて
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    x = R^{\frac{1}{3}}\sqrt{1-\Theta^2}\cos{\phi}\\
-    y = R^{\frac{1}{3}}\sqrt{1-\Theta^2}\sin{\phi}\\
-    z = R^{\frac{1}{3}}\Theta
-    \end{cases}
-    \label{一様球2}
-\end{aligned}
-\end{align}
-と表せることになる。したがって、球内に一様分布する点を生成したいときには、式(\ref{一様球1})の範囲で$R,\Theta,\phi$のそれぞれの一様乱数を用いて式(\ref{一様球2})から生成することができる。
+\chapter{付録}
+% \section{一様球}
+% 球内に一様分布する点を生成する際は、体積素を考慮する必要がある。3次元極座標での単位球は、$0<r<1, 0<\theta<\pi, 0<\phi<2\pi$として
+% \begin{align}
+% \begin{aligned}
+%     \begin{cases}
+%     x = r\sin{\theta}\cos{\phi}\\
+%     y = r\sin{\theta}\sin{\phi}\\
+%     z = r\cos{\theta}
+%     \end{cases}
+% \end{aligned}
+% \end{align}
+% となる。この時の体積素は$dV = r^2\sin{\theta}{\rm d}r{\rm d}\theta{\rm d}\phi$となるから、
+% \begin{align}
+% \begin{aligned}
+%     \int dV =& -\frac{1}{3}r^3 \cos{\theta}\phi\\
+% \end{aligned}
+% \end{align}
+% ここで、座標を
+% \begin{align}
+% \begin{aligned}
+%     (R,\Theta,\phi) = \left(\frac{1}{3}r^3,-\cos{\theta},\phi \right)
+% \end{aligned}
+% \end{align}
+% とすると、それぞれの座標の範囲は$0<R<\frac{1}{3}, -1<\Theta<1, 0<\phi<2\pi$となる。ここで、$\frac{1}{3}r^3 \to r^3, -\cos{\theta} \to \cos{\theta}$すると、
+% \begin{align}
+% \begin{aligned}
+%     \begin{cases}
+%     r = R^{\frac{1}{3}}  &(0<R<1)\\
+%     \theta = \arccos{\Theta}  &(-1<\Theta<1)\\
+%     \phi = \phi  &(0<\phi<2\pi)
+%     \end{cases}
+% \end{aligned}
+% \end{align}
+% となるから、
+% \begin{align}
+% \begin{aligned}
+%     \begin{cases}
+%     R  &(0<R<1)\\
+%     \Theta  &(-1<\Theta<1)\\
+%     \phi  &(0<\phi<2\pi)\\
+%     \end{cases}
+%     \label{一様球1}
+% \end{aligned}
+% \end{align}
+% を用いて
+% \begin{align}
+% \begin{aligned}
+%     \begin{cases}
+%     x = R^{\frac{1}{3}}\sqrt{1-\Theta^2}\cos{\phi}\\
+%     y = R^{\frac{1}{3}}\sqrt{1-\Theta^2}\sin{\phi}\\
+%     z = R^{\frac{1}{3}}\Theta
+%     \end{cases}
+%     \label{一様球2}
+% \end{aligned}
+% \end{align}
+% と表せることになる。したがって、球内に一様分布する点を生成したいときには、式(\ref{一様球1})の範囲で$R,\Theta,\phi$のそれぞれの一様乱数を用いて式(\ref{一様球2})から生成することができる。
 
-\section{誤差伝播}
-\subsection{年周視差}
-年周視差の誤差は、$\sigma_r = \sigma_{\varpi}/\varpi^2$と計算
-(\cite{BJ15})
-
-
-\subsection{速度}
-\subsection{Cov$(v_R,v_{\phi},v_z)$ to Cov$(d,v_r,\mu_l,\mu_b)$}
-\begin{align}
-\begin{aligned}
-	{\rm Cov}(v_r,v_l,v_b) = {\bm R} \ {\rm Cov}(v_R,v_{\phi},v_z) \ {\bm R^{-1}}
-\end{aligned}
-\end{align}
-Where ${\bm R}$ is the transformation matrix from $(v_R,v_{\phi},v_z)$ to $(v_r,v_l,v_b)$. At first, transformation from $(v_R,v_{\phi},v_z)$ to $(U,V,W)$ is as follows;
-\begin{align}
-\begin{aligned}
-	\left(
-	\begin{array}{c}
-	 	U \\
-	 	V \\
-	 	 W
-	\end{array}
-	\right)
-	= {\bm T}
-	\left(
-	\begin{array}{c}
-	 	v_R\\
-	 	v_{\phi}\\
-	 	v_z
-	\end{array}
-	\right)
-\end{aligned}
-\end{align}
-\end{comment}
+% \section{誤差伝播}
+% \subsection{年周視差}
+% 年周視差の誤差は、$\sigma_r = \sigma_{\varpi}/\varpi^2$と計算
+% (\cite{BJ15})
 
 
-\begin{comment}
-\section{平均値の標準誤差}
-正規分布に従う量$x$について$N$個の測定値$x_1,\cdots,x_N$を得た場合、真の値$X$の最良推定値は$x_1,\cdots,x_N$の平均値$\bar{x}$である。この推定値の誤差は平均値の標準誤差
-\begin{align}
-    \sigma_{\bar{x}} = \sigma_{x}/\sqrt{N}
-\end{align}
-である。平均値は、$N$個の値$x_1,\cdots,x_N$を測定し、次の関数
-\begin{align}
-    \bar{x} = \frac{x_1+ \cdots x_N}{N}  \label{平均値}
-\end{align}
-を計算する。
-
-\begin{align}
-    \frac{X+ \cdots +X}{N} = X
-\end{align}
-誤差伝搬を考慮すれば、平均値$\bar{x}$の分布の幅は
-\begin{align}
-     \sigma_{\bar{x}} = \sqrt{\left(\frac{\partial \bar{x}}{\partial x_1}\sigma_{x_1}\right)^2 + \cdots + \left(\frac{\partial \bar{x}}{\partial x_N}\sigma_{x_N}\right)^2}  \label{eqA1}
-\end{align}
-である。$x_1,\cdots,x_N$はすべて同一量$x$についての推定値なので、幅はすべて同じで$\sigma_x$に等しい。したがって
-\begin{align}
-     \sigma_{x_1}= \dots =\sigma_{x_N}=\sigma_x
-\end{align}
-である。また、式(\ref{平均値})によって式(\ref{eqA1})の偏微分がすべて同じであることがわかる。つまり
-\begin{align}
-     \frac{\partial \bar{x}}{\partial x_1}= \cdots = \frac{\partial \bar{x}}{\partial x_N} = \frac{1}{N}
-\end{align}
-である。したがって、式(\ref{eqA1})は
-\begin{align}
-     \sigma_{\bar{x}} = \sqrt{\left(\frac{1}{N}\sigma_{x_1}\right)^2+ \cdots +\left(\frac{1}{N}\sigma_{x_N}\right)^2} = \sqrt{N\frac{\sigma_x^2}{N^2}} = \frac{\sigma_x}{\sqrt{N}}
-\end{align}
-となる。
+% \subsection{速度}
+% \subsection{Cov$(v_R,v_{\phi},v_z)$ to Cov$(d,v_R,\mu_l,\mu_b)$}
+% \begin{align}
+% \begin{aligned}
+% 	{\rm Cov}(v_R,v_l,v_b) = {\bm R} \ {\rm Cov}(v_R,v_{\phi},v_z) \ {\bm R^{-1}}
+% \end{aligned}
+% \end{align}
+% Where ${\bm R}$ is the transformation matrix from $(v_R,v_{\phi},v_z)$ to $(v_R,v_l,v_b)$. At first, transformation from $(v_R,v_{\phi},v_z)$ to $(U,V,W)$ is as follows;
+% \begin{align}
+% \begin{aligned}
+% 	\left(
+% 	\begin{array}{c}
+% 	 	U \\
+% 	 	V \\
+% 	 	 W
+% 	\end{array}
+% 	\right)
+% 	= {\bm T}
+% 	\left(
+% 	\begin{array}{c}
+% 	 	v_R\\
+% 	 	v_{\phi}\\
+% 	 	v_z
+% 	\end{array}
+% 	\right)
+% \end{aligned}
+% \end{align}
 
 
-\section{速度分散のエラーバー}
-$i$方向の速度分散を$\sigma_i$、その速度分散のエラーを$e_{\sigma_i}$、星の数を$N$とすると、
-\begin{align}
-     e_{\sigma} = (2N)^{-1/2} \sigma_i
-\end{align}
-と表せる(\cite{Anguiano2018})。
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{平均値の標準誤差}
+% 正規分布に従う量$x$について$N$個の測定値$x_1,\cdots,x_N$を得た場合、真の値$X$の最良推定値は$x_1,\cdots,x_N$の平均値$\bar{x}$である。この推定値の誤差は平均値の標準誤差
+% \begin{align}
+%     \sigma_{\bar{x}} = \sigma_{x}/\sqrt{N}
+% \end{align}
+% である。平均値は、$N$個の値$x_1,\cdots,x_N$を測定し、次の関数
+% \begin{align}
+%     \bar{x} = \frac{x_1+ \cdots x_N}{N}  \label{平均値}
+% \end{align}
+% を計算する。
 
-\section{Likelihood}
-使用する観測量は$l_{\rm i},b_{\rm i},\varpi_{\rm i},\mu_{l,\rm i},\mu_{b,\rm i},v_{R, \rm i},\sigma_{\mu_{l,\rm i}},\sigma_{\mu_{b,\rm i}},\sigma_{v_{R,\rm i}}$である。$\rm i$は、i番目の天体のデータであることを意味する。
+% \begin{align}
+%     \frac{X+ \cdots +X}{N} = X
+% \end{align}
+% 誤差伝搬を考慮すれば、平均値$\bar{x}$の分布の幅は
+% \begin{align}
+%      \sigma_{\bar{x}} = \sqrt{\left(\frac{\partial \bar{x}}{\partial x_1}\sigma_{x_1}\right)^2 + \cdots + \left(\frac{\partial \bar{x}}{\partial x_N}\sigma_{x_N}\right)^2}  \label{eqA1}
+% \end{align}
+% である。$x_1,\cdots,x_N$はすべて同一量$x$についての推定値なので、幅はすべて同じで$\sigma_x$に等しい。したがって
+% \begin{align}
+%      \sigma_{x_1}= \dots =\sigma_{x_N}=\sigma_x
+% \end{align}
+% である。また、式(\ref{平均値})によって式(\ref{eqA1})の偏微分がすべて同じであることがわかる。つまり
+% \begin{align}
+%      \frac{\partial \bar{x}}{\partial x_1}= \cdots = \frac{\partial \bar{x}}{\partial x_N} = \frac{1}{N}
+% \end{align}
+% である。したがって、式(\ref{eqA1})は
+% \begin{align}
+%      \sigma_{\bar{x}} = \sqrt{\left(\frac{1}{N}\sigma_{x_1}\right)^2+ \cdots +\left(\frac{1}{N}\sigma_{x_N}\right)^2} = \sqrt{N\frac{\sigma_x^2}{N^2}} = \frac{\sigma_x}{\sqrt{N}}
+% \end{align}
+% となる。
 
-Oort-Lindbladモデルでは、固有運動と視線速度を
-\begin{align}
-\begin{aligned}
-	\mu_l(l_i,b_i,\varpi_i) &= (A\cos2l_i - C\sin2l_i + B)\cos b_i + \varpi(u_0\sin l_i - v_0\cos l_i) \\
-	\mu_b(l_i,b_i,\varpi_i) &= -(A\sin2l_i + C\cos2l_i + K)\sin b_i \cos b_i \\
-	                          & \hspace{2cm} + \varpi_i[(u_0\cos l_i + v_0 \sin l_i)\sin b_i - w_0 \cos b_i] \\
-	v_R(l_i,b_i,\varpi_i) &= (K + C\cos2l_i + A\sin2l_i)\cos^2 b_i / \varpi \\
-	                      & \hspace{2cm} - [(u_0\cos l_i + v_0 \sin l_i)\cos b_i + w_0 \sin b_i]
-\end{aligned}
-\end{align}
-のように記述できる。
 
-これらを使って、Likelihood関数は
-\begin{align}
-\begin{aligned}
-	\mathcal{L} = & \prod_i \left( N\left[ \mu_l^i - \mu_l(l_i,b_i,\varpi_i), \ \sqrt{\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2}\ \right] \right. \\
-	& N\left[ \mu_b^i - \mu_b(l_i,b_i,\varpi_i), \ \sqrt{\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2} \ \right] \\
-	& \left. N\left[ v_r^i - v_r(l_i,b_i,\varpi_i), \ \sqrt{\sigma_{v_r}^2 + (s_{v_r}^i)^2} \ \right] \right)
-\end{aligned}
-\end{align}
+% \section{速度分散のエラーバー}
+% $i$方向の速度分散を$\sigma_i$、その速度分散のエラーを$e_{\sigma_i}$、星の数を$N$とすると、
+% \begin{align}
+%      e_{\sigma} = (2N)^{-1/2} \sigma_i
+% \end{align}
+% と表せる(\cite{Anguiano2018})。
 
-\begin{align}
-\begin{aligned}
-	L =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_l^i - \mu_l(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2\right] \right. \\
-	& = \left. \frac{\left[\mu_b^i - \mu_b(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2\right] \right. \\
-	&= \left. \frac{\left[v_R^i - v_R(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_R}^2 + (s_{v_R}^i)^2} + {\rm ln}\left[\sigma_{v_R}^2 + (s_{v_R}^i)^2\right] \right)
-\end{aligned}
-\end{align}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-と書ける。フィッティングパラメータは$A,B,C,K,u_0,v_0,w_0,s_{\mu_l},s_{\mu_b},s_{v_{\mathrm{los}}}$の10個を用いる。$s_{\mu_l},s_{\mu_b},s_{v_{\mathrm{los}}}$はそれぞれ$\mu_l,\mu_b,v_R$の分散を表す。
+% \section{Likelihood}
+% 使用する観測量は$l_{\rm i},b_{\rm i},\varpi_{\rm i},\mu_{l,\rm i},\mu_{b,\rm i},v_{R, \rm i},\sigma_{\mu_{l,\rm i}},\sigma_{\mu_{b,\rm i}},\sigma_{v_{R,\rm i}}$である。$\rm i$は、i番目の天体のデータであることを意味する。
 
-\begin{align}
-\begin{aligned}
-	{\rm ln} L =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_l^i - \mu_l(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2\right] \right. \\
-	& = \left. \frac{\left[\mu_b^i - \mu_b(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2\right] \right. \\
-	&= \left. \frac{\left[v_R^i - v_R(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_R}^2 + (s_{v_R}^i)^2} + {\rm ln}\left[\sigma_{v_R}^2 + (s_{v_R}^i)^2\right] \right)
-\end{aligned}
-\end{align}
-\end{comment}
+% Oort-Lindbladモデルでは、固有運動と視線速度を
+% \begin{align}
+% \begin{aligned}
+% 	\mu_l(l_i,b_i,\varpi_i) &= (A\cos2l_i - C\sin2l_i + B)\cos b_i + \varpi(u_0\sin l_i - v_0\cos l_i) \\
+% 	\mu_b(l_i,b_i,\varpi_i) &= -(A\sin2l_i + C\cos2l_i + K)\sin b_i \cos b_i \\
+% 	                          & \hspace{2cm} + \varpi_i[(u_0\cos l_i + v_0 \sin l_i)\sin b_i - w_0 \cos b_i] \\
+% 	v_R(l_i,b_i,\varpi_i) &= (K + C\cos2l_i + A\sin2l_i)\cos^2 b_i / \varpi \\
+% 	                      & \hspace{2cm} - [(u_0\cos l_i + v_0 \sin l_i)\cos b_i + w_0 \sin b_i]
+% \end{aligned}
+% \end{align}
+% のように記述できる。
+
+% これらを使って、Likelihood関数は
+% \begin{align}
+% \begin{aligned}
+% 	\mathcal{L} = & \prod_i \left( N\left[ \mu_l^i - \mu_l(l_i,b_i,\varpi_i), \ \sqrt{\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2}\ \right] \right. \\
+% 	& N\left[ \mu_b^i - \mu_b(l_i,b_i,\varpi_i), \ \sqrt{\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2} \ \right] \\
+% 	& \left. N\left[ v_R^i - v_R(l_i,b_i,\varpi_i), \ \sqrt{\sigma_{v_R}^2 + (s_{v_R}^i)^2} \ \right] \right)
+% \end{aligned}
+% \end{align}
+
+% \begin{align}
+% \begin{aligned}
+% 	L =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_l^i - \mu_l(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2\right] \right. \\
+% 	& = \left. \frac{\left[\mu_b^i - \mu_b(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2\right] \right. \\
+% 	&= \left. \frac{\left[v_R^i - v_R(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_R}^2 + (s_{v_R}^i)^2} + {\rm ln}\left[\sigma_{v_R}^2 + (s_{v_R}^i)^2\right] \right)
+% \end{aligned}
+% \end{align}
+
+% と書ける。フィッティングパラメータは$A,B,C,K,u_0,v_0,w_0,s_{\mu_l},s_{\mu_b},s_{v_{\mathrm{los}}}$の10個を用いる。$s_{\mu_l},s_{\mu_b},s_{v_{\mathrm{los}}}$はそれぞれ$\mu_l,\mu_b,v_R$の分散を表す。
+
+% \begin{align}
+% \begin{aligned}
+% 	{\rm ln} L =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_l^i - \mu_l(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_l}^i)^2\right] \right. \\
+% 	& = \left. \frac{\left[\mu_b^i - \mu_b(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_b}^i)^2\right] \right. \\
+% 	&= \left. \frac{\left[v_R^i - v_R(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_R}^2 + (s_{v_R}^i)^2} + {\rm ln}\left[\sigma_{v_R}^2 + (s_{v_R}^i)^2\right] \right)
+% \end{aligned}
+% \end{align}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{comment}
-\section{模擬データ生成}
-模擬データを作る上で、まず1000個の星を球状に一様密度で生成する。その後、
-\end{comment}
 
-\begin{comment}
-\section{オールト定数}
-座標系と速度の向きを図(\ref{fig:coordinates})のようにとる。このとき、
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    x = -R\cos{\phi} - R_{\odot}\\
-    y = R\sin{\phi}
-    \end{cases}
-\end{aligned}
-\end{align}
+% \section{オールト定数}
+% 座標系と速度の向きを図(\ref{fig:coordinates})のようにとる。このとき、
+% \begin{align}
+% \begin{aligned}
+%     \begin{cases}
+%     x = -R\cos{\phi} - R_{\odot}\\
+%     y = R\sin{\phi}
+%     \end{cases}
+% \end{aligned}
+% \end{align}
 
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    R = \sqrt{(x+R_{\odot})^2 + y^2}\\
-    \phi = \arctan{c\frac{y}{-x-R_{\odot}}}
-    \end{cases}
-\end{aligned}
-\end{align}
+% \begin{align}
+% \begin{aligned}
+%     \begin{cases}
+%     R = \sqrt{(x+R_{\odot})^2 + y^2}\\
+%     \phi = \arctan{c\frac{y}{-x-R_{\odot}}}
+%     \end{cases}
+% \end{aligned}
+% \end{align}
 
 
-\begin{align}
-\begin{aligned}
-	\left(
-	\begin{array}{c}
-	 	V_x \\
-	 	V_y
-	\end{array}
-	\right)
-	=
-	\left(
-	\begin{array}{cc}
-	 	\cos{\phi} & \sin{\phi}\\
-	 	-\sin{\phi} & \cos{\phi}
-	\end{array}
-	\right)
-	\left(
-	\begin{array}{cc}
-	 	-V_R \\
-	 	V_{\phi}
-	\end{array}
-	\right)
-\end{aligned}
-\end{align}
+% \begin{align}
+% \begin{aligned}
+% 	\left(
+% 	\begin{array}{c}
+% 	 	V_x \\
+% 	 	V_y
+% 	\end{array}
+% 	\right)
+% 	=
+% 	\left(
+% 	\begin{array}{cc}
+% 	 	\cos{\phi} & \sin{\phi}\\
+% 	 	-\sin{\phi} & \cos{\phi}
+% 	\end{array}
+% 	\right)
+% 	\left(
+% 	\begin{array}{cc}
+% 	 	-v_R \\
+% 	 	V_{\phi}
+% 	\end{array}
+% 	\right)
+% \end{aligned}
+% \end{align}
 
-太陽近傍で考える($\phi=0$で$R=R_{\odot}$)と、$\cfrac{\partial R}{\partial x} = -1, \cfrac{\partial R}{\partial y} = 0, \cfrac{\partial \phi}{\partial x} = 0, \cfrac{\partial \phi}{\partial y} = \cfrac{1}{R_{\odot}}$より、
-\begin{align}
-\begin{aligned}
-    \frac{\partial V_x}{\partial x} &= \frac{\partial R}{\partial x}\frac{\partial V_R}{\partial R} + \frac{\partial \phi}{\partial x}\frac{\partial V_x}{\partial \phi} = \frac{\partial V_x}{\partial R}\\
-    \frac{\partial V_x}{\partial y} &= \frac{\partial R}{\partial y}\frac{\partial V_x}{\partial R} + \frac{\partial \phi}{\partial y}\frac{\partial V_x}{\partial \phi} = \frac{1}{R_{\odot}}\left(-\frac{\partial V_R}{\partial \phi} + V_{\phi} \right) \\
-    \frac{\partial V_y}{\partial x} &= \frac{\partial R}{\partial x}\frac{\partial V_y}{\partial R} + \frac{\partial \phi}{\partial x}\frac{\partial V_y}{\partial \phi} = -\frac{\partial V_{\phi}}{\partial R}\\
-    \frac{\partial V_y}{\partial y} &= \frac{\partial R}{\partial y}\frac{\partial V_y}{\partial R} + \frac{\partial \phi}{\partial y}\frac{\partial V_y}{\partial \phi} = \frac{1}{R_{\odot}}\left(\frac{\partial V_{\phi}}{\partial \phi}+V_R\right)
-\end{aligned}
-\end{align}
+% 太陽近傍で考える($\phi=0$で$R=R_{\odot}$)と、$\cfrac{\partial R}{\partial x} = -1, \cfrac{\partial R}{\partial y} = 0, \cfrac{\partial \phi}{\partial x} = 0, \cfrac{\partial \phi}{\partial y} = \cfrac{1}{R_{\odot}}$より、
+% \begin{align}
+% \begin{aligned}
+%     \frac{\partial V_x}{\partial x} &= \frac{\partial R}{\partial x}\frac{\partial v_R}{\partial R} + \frac{\partial \phi}{\partial x}\frac{\partial V_x}{\partial \phi} = \frac{\partial V_x}{\partial R}\\
+%     \frac{\partial V_x}{\partial y} &= \frac{\partial R}{\partial y}\frac{\partial V_x}{\partial R} + \frac{\partial \phi}{\partial y}\frac{\partial V_x}{\partial \phi} = \frac{1}{R_{\odot}}\left(-\frac{\partial v_R}{\partial \phi} + V_{\phi} \right) \\
+%     \frac{\partial V_y}{\partial x} &= \frac{\partial R}{\partial x}\frac{\partial V_y}{\partial R} + \frac{\partial \phi}{\partial x}\frac{\partial V_y}{\partial \phi} = -\frac{\partial V_{\phi}}{\partial R}\\
+%     \frac{\partial V_y}{\partial y} &= \frac{\partial R}{\partial y}\frac{\partial V_y}{\partial R} + \frac{\partial \phi}{\partial y}\frac{\partial V_y}{\partial \phi} = \frac{1}{R_{\odot}}\left(\frac{\partial V_{\phi}}{\partial \phi}+v_R\right)
+% \end{aligned}
+% \end{align}
 
-となるから、
-\begin{align}
-\begin{aligned}
-    A &= \frac{1}{2}\left(\frac{\partial V_x}{\partial y} + \frac{\partial V_y}{\partial x}\right) = \frac{1}{2}\left(\frac{V_{\phi}}{R_{\odot}} - \frac{\partial V_{\phi}}{\partial R} - \frac{1}{R_{\odot}}\frac{\partial V_R}{\partial \phi}\right) \\
-    B &= \frac{1}{2}\left(-\frac{\partial V_x}{\partial y} + \frac{\partial V_y}{\partial x}\right) = \frac{1}{2}\left(-\frac{V_{\phi}}{R_{\odot}} - \frac{\partial V_{\phi}}{\partial R} + \frac{1}{R_{\odot}}\frac{\partial V_R}{\partial \phi}\right) \\
-    C &= \frac{1}{2}\left(\frac{\partial V_x}{\partial x} - \frac{\partial V_y}{\partial y}\right) = \frac{1}{2}\left(-\frac{V_R}{R_{\odot}} + \frac{\partial V_R}{\partial R} - \frac{1}{R_{\odot}}\frac{\partial V_{\phi}}{\partial \phi}\right) \\
-    K &= \frac{1}{2}\left(\frac{\partial V_x}{\partial x} + \frac{\partial V_y}{\partial y}\right) = \frac{1}{2}\left(\frac{V_R}{R_{\odot}} + \frac{\partial V_R}{\partial R} + \frac{1}{R_{\odot}}\frac{\partial V_{\phi}}{\partial \phi}\right)
-\end{aligned}
-\end{align}
-と書ける。
-\end{comment}
+% となるから、
+% \begin{align}
+% \begin{aligned}
+%     A &= \frac{1}{2}\left(\frac{\partial V_x}{\partial y} + \frac{\partial V_y}{\partial x}\right) = \frac{1}{2}\left(\frac{V_{\phi}}{R_{\odot}} - \frac{\partial V_{\phi}}{\partial R} - \frac{1}{R_{\odot}}\frac{\partial v_R}{\partial \phi}\right) \\
+%     B &= \frac{1}{2}\left(-\frac{\partial V_x}{\partial y} + \frac{\partial V_y}{\partial x}\right) = \frac{1}{2}\left(-\frac{V_{\phi}}{R_{\odot}} - \frac{\partial V_{\phi}}{\partial R} + \frac{1}{R_{\odot}}\frac{\partial v_R}{\partial \phi}\right) \\
+%     C &= \frac{1}{2}\left(\frac{\partial V_x}{\partial x} - \frac{\partial V_y}{\partial y}\right) = \frac{1}{2}\left(-\frac{v_R}{R_{\odot}} + \frac{\partial v_R}{\partial R} - \frac{1}{R_{\odot}}\frac{\partial V_{\phi}}{\partial \phi}\right) \\
+%     K &= \frac{1}{2}\left(\frac{\partial V_x}{\partial x} + \frac{\partial V_y}{\partial y}\right) = \frac{1}{2}\left(\frac{v_R}{R_{\odot}} + \frac{\partial v_R}{\partial R} + \frac{1}{R_{\odot}}\frac{\partial V_{\phi}}{\partial \phi}\right)
+% \end{aligned}
+% \end{align}
+% と書ける。
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{comment}
-\section{統計}
-統計学は大きく頻度主義とベイズ主義の 2 つに分けられる。
+% \section{統計}
+% 統計学は大きく頻度主義とベイズ主義の 2 つに分けられる。
 
-\subsection{最小二乗法}
-\subsubsection{基礎}
-最小二乗法は、最尤性原理(principle of maximum likelihood)を用いた方法である。この原理を用いた、最良推定値を求める方法を最尤推定法と呼ぶ。これは頻度主義と呼ばれる。
+% \subsection{最小二乗法}
+% \subsubsection{基礎}
+% 最小二乗法は、最尤性原理(principle of maximum likelihood)を用いた方法である。この原理を用いた、最良推定値を求める方法を最尤推定法と呼ぶ。これは頻度主義と呼ばれる。
 
-\begin{enumerate}
-	\item{まず、真のモデルがある。我々はその真のモデルから発生した観測値を手に入れている。 真の値は一つであり、観測値は取り方によって確率的に変化する。というのが頻度論の 基本的な発想。}
-	\item{データは確率的なものであるが、真のモデルの推定値は、手元の観測値が最も得られや すいものとする。}
-\end{enumerate}
+% \begin{enumerate}
+% 	\item{まず、真のモデルがある。我々はその真のモデルから発生した観測値を手に入れている。 真の値は一つであり、観測値は取り方によって確率的に変化する。というのが頻度論の 基本的な発想。}
+% 	\item{データは確率的なものであるが、真のモデルの推定値は、手元の観測値が最も得られや すいものとする。}
+% \end{enumerate}
 
- 最尤推定法では、観測値がガウス分布に従っていると仮定する。 ベイズ推定では、事後分布は次のように書ける。
-\begin{align}
-	事後分布 &= \frac{事前分布 \times 尤度}{観測値の分布} \\
-			&\propto 事前分布 \times 尤度
-\end{align}
+%  最尤推定法では、観測値がガウス分布に従っていると仮定する。 ベイズ推定では、事後分布は次のように書ける。
+% \begin{align}
+% 	事後分布 &= \frac{事前分布 \times 尤度}{観測値の分布} \\
+% 			&\propto 事前分布 \times 尤度
+% \end{align}
 
-観測値の分布は確率の形に戻す(正規化する)ための定数と考えれば、重要なのは事前分布 と尤度である。
-最尤推定法は尤度だけから真値を推定するが、ベイズ推定では事前分布を掛けている。正 確に言うと、最尤推定法は事前分布に一様分布を仮定している。すると、
-\begin{align}
-	一様分布 \times 尤度
-\end{align}
-の確率分布の最頻値(尤度が最大の値)が最尤推定量となる。しかし、ベイズ推定では値で はなく確率分布で与えられる。
+% 観測値の分布は確率の形に戻す(正規化する)ための定数と考えれば、重要なのは事前分布 と尤度である。
+% 最尤推定法は尤度だけから真値を推定するが、ベイズ推定では事前分布を掛けている。正 確に言うと、最尤推定法は事前分布に一様分布を仮定している。すると、
+% \begin{align}
+% 	一様分布 \times 尤度
+% \end{align}
+% の確率分布の最頻値(尤度が最大の値)が最尤推定量となる。しかし、ベイズ推定では値で はなく確率分布で与えられる。
 
-\subsection{MCMC法}
-マルコフ連鎖を利用したモンテカルロ法を用いると、データの分布を計算せずに直接事後分布を求めることができる。
+% \subsection{MCMC法}
+% マルコフ連鎖を利用したモンテカルロ法を用いると、データの分布を計算せずに直接事後分布を求めることができる。
 
-\subsubsection{基礎}
+% \subsubsection{基礎}
 
-事前分布が multimodal な分布の場合、最小二乗法などの 1 つの値を exact に決める方法を 適用すべきではない。このような場合、ベイズ統計の手法を用いて事後分布を求める方法が 有効に働く。この方法としてよく使われるのがマルコフ連鎖モンテカルロ法(MCMC)と呼 ばれるものである。マルコフ連鎖(Markov chain)とは、ひとつのステップの中で前の状態 に基づいて次の状態を作り出すことをいうい。また一般に、乱数を用いた計算アルゴリズム をモンテカルロ法と呼ぶ(カジノで有名なためにこう名付けられたらしい。ラスベガス法という別の方法も存在する)。
+% 事前分布が multimodal な分布の場合、最小二乗法などの 1 つの値を exact に決める方法を 適用すべきではない。このような場合、ベイズ統計の手法を用いて事後分布を求める方法が 有効に働く。この方法としてよく使われるのがマルコフ連鎖モンテカルロ法(MCMC)と呼 ばれるものである。マルコフ連鎖(Markov chain)とは、ひとつのステップの中で前の状態 に基づいて次の状態を作り出すことをいうい。また一般に、乱数を用いた計算アルゴリズム をモンテカルロ法と呼ぶ(カジノで有名なためにこう名付けられたらしい。ラスベガス法という別の方法も存在する)。
 
-モンテカルロ法は、真にランダムにサンプリングを行うため
-\begin{itemize}
-	\item{計算コストがかさむ}
-	\item{精度も向上しない}
-\end{itemize}
-という課題がある。MCMC は、マルコフ連鎖を定常分布としたサンプリングを行うことで、 上記課題を改善した方法である。
+% モンテカルロ法は、真にランダムにサンプリングを行うため
+% \begin{itemize}
+% 	\item{計算コストがかさむ}
+% 	\item{精度も向上しない}
+% \end{itemize}
+% という課題がある。MCMC は、マルコフ連鎖を定常分布としたサンプリングを行うことで、 上記課題を改善した方法である。
 
-MCMC 法のアルゴリズムは、以下の通りである。
-\begin{enumerate}
-	\item{初期点を決める}
-	\item{マルコフ連鎖により次のサンプリングを行う分布を決定する}
-	\item{分布が収束をするまで、2を繰り返す}
-\end{enumerate}
-基本的なアルゴリズムはこのようなものであるが、さらに具体的なアルゴリズムにはいくつかの方法がある。それらの中で最も基本的な方法はメトロポリス・ヘイスティング法と呼ばれるものである。この他にも、ハミルトニアン・モンテカルロ法やギブス・サンプリング法と呼ばれるものがある。次章では、最もMCMCの最も基本的なアルゴリズムであるメトロポリス・ヘイスティング法について触れる。
+% MCMC 法のアルゴリズムは、以下の通りである。
+% \begin{enumerate}
+% 	\item{初期点を決める}
+% 	\item{マルコフ連鎖により次のサンプリングを行う分布を決定する}
+% 	\item{分布が収束をするまで、2を繰り返す}
+% \end{enumerate}
+% 基本的なアルゴリズムはこのようなものであるが、さらに具体的なアルゴリズムにはいくつかの方法がある。それらの中で最も基本的な方法はメトロポリス・ヘイスティング法と呼ばれるものである。この他にも、ハミルトニアン・モンテカルロ法やギブス・サンプリング法と呼ばれるものがある。次章では、最もMCMCの最も基本的なアルゴリズムであるメトロポリス・ヘイスティング法について触れる。
 
-\subsubsection{メトロポリス・ヘイスティング法}
-自作コードではメトロポリス・ヘイスティング法(MH 法)を用いている。
-\begin{enumerate}
-	\item{$a \sim q(a|\theta_t)$からパラメータの候補$a$を生成する}
-	\item{$\cfrac{q(\theta|a)f(a)}{q(a|\theta_t)f(\theta_t)}$を計算する}
-	\item{確率${\rm min}(1,r)$ で$a$を受容し、$\theta_{t+1} = a$とする}
-\end{enumerate}
-を繰り返してパラメータを更新していく。よって、現在のパラメータから新しいパラメータを生成するときの確率$q(a|\theta_t)$、および、尤度$f$を計算するときの分布の形状(提案分布)を決めると、パラメータを推定することができる。提案分布は正規分布としたときの平均と標準偏差が一般的に求められる値である。
-この方法の課題は、(1) 受容率が低く、事後分布に従うサンプルを十分に得られない。(2) 前後のサンプルの相関が高く、パラメータ空間を網羅できない。というものがある。パラメー タ数が少ない低次元であれば遷移核は容易に分かるが、数十以上の高次元空間だと、事後分布の形状自体の確認が難しくなる。そこで、上記の課題を解決するのがハミルトニアン・モンテカルロ法である。
+% \subsubsection{メトロポリス・ヘイスティング法}
+% 自作コードではメトロポリス・ヘイスティング法(MH 法)を用いている。
+% \begin{enumerate}
+% 	\item{$a \sim q(a|\theta_t)$からパラメータの候補$a$を生成する}
+% 	\item{$\cfrac{q(\theta|a)f(a)}{q(a|\theta_t)f(\theta_t)}$を計算する}
+% 	\item{確率${\rm min}(1,r)$ で$a$を受容し、$\theta_{t+1} = a$とする}
+% \end{enumerate}
+% を繰り返してパラメータを更新していく。よって、現在のパラメータから新しいパラメータを生成するときの確率$q(a|\theta_t)$、および、尤度$f$を計算するときの分布の形状(提案分布)を決めると、パラメータを推定することができる。提案分布は正規分布としたときの平均と標準偏差が一般的に求められる値である。
+% この方法の課題は、(1) 受容率が低く、事後分布に従うサンプルを十分に得られない。(2) 前後のサンプルの相関が高く、パラメータ空間を網羅できない。というものがある。パラメー タ数が少ない低次元であれば遷移核は容易に分かるが、数十以上の高次元空間だと、事後分布の形状自体の確認が難しくなる。そこで、上記の課題を解決するのがハミルトニアン・モンテカルロ法である。
 
-\subsubsection{ハミルトニアン・モンテカルロ法}
-まず、何かの粒子が$N$個あるとして、粒子$i$の位置が$x_i$、運動量が$p_i$だとする。系全体の状態は、$(x,p) = ({x_i},{p_i})$で表される。すると、それぞれの粒子は以下のハミルトン方程式にしたがって運動する。
-\begin{align}
-\begin{aligned}
-	\frac{dx_i(t)}{dt} =& \frac{\partial H(x,p)}{\partial p_i} \\
-	\frac{dp_i(t)}{dt} =& -\frac{\partial H(x,p)}{\partial x_i}
-\end{aligned}
-\end{align}
-ハミルトン方程式の重要な性質は、(x,p)空間の確率密度関数$q(x,p)$の値が$H$だけの関数であるとき、すなわち、$q(x,p) = r(H(x,p))$という形をしているとき、それがハミルトン方程式による状態変化について定常分布担っていることである。
-
-
-ハミルトニアンとは、物体の持つ力学的エネルギーを、位相空間で表現したものである。位相空間とは、運動量と位置で張られる空間である。力学的エネルギー保存の法則より、ハミルトニアンは時間によらず一定である。この性質を利用して、うまく事後確率のサンプルを得る。慣性付きの勾配法のようなものである。このアルゴリズムは次のようになる。
-\begin{enumerate}
-	\item{運動量$p$を標準正規乱数から発生させる。}
-	\item{ポテンシャル$h(\theta)$を対数事後分布として、慣性付きの勾配法を進めて、$L$ステップ後 の値を$\theta_a$とする。}
-	\item{$r=exp(H(\theta_t,p_t)−H(\theta_a,p_a))$を求める。}
-	\item{確率${\rm min}(1, r)$でパラメータ$\theta_a$を受容する。}
-\end{enumerate}
-ここで、$H$はハミルトニアンで、$H(\theta,p) = h(\theta) + 1p\cdot p$である。
-\end{comment}
+% \subsubsection{ハミルトニアン・モンテカルロ法}
+% まず、何かの粒子が$N$個あるとして、粒子$i$の位置が$x_i$、運動量が$p_i$だとする。系全体の状態は、$(x,p) = ({x_i},{p_i})$で表される。すると、それぞれの粒子は以下のハミルトン方程式にしたがって運動する。
+% \begin{align}
+% \begin{aligned}
+% 	\frac{dx_i(t)}{dt} =& \frac{\partial H(x,p)}{\partial p_i} \\
+% 	\frac{dp_i(t)}{dt} =& -\frac{\partial H(x,p)}{\partial x_i}
+% \end{aligned}
+% \end{align}
+% ハミルトン方程式の重要な性質は、(x,p)空間の確率密度関数$q(x,p)$の値が$H$だけの関数であるとき、すなわち、$q(x,p) = r(H(x,p))$という形をしているとき、それがハミルトン方程式による状態変化について定常分布担っていることである。
 
 
-\section{ジーンズ方程式}
+% ハミルトニアンとは、物体の持つ力学的エネルギーを、位相空間で表現したものである。位相空間とは、運動量と位置で張られる空間である。力学的エネルギー保存の法則より、ハミルトニアンは時間によらず一定である。この性質を利用して、うまく事後確率のサンプルを得る。慣性付きの勾配法のようなものである。このアルゴリズムは次のようになる。
+% \begin{enumerate}
+% 	\item{運動量$p$を標準正規乱数から発生させる。}
+% 	\item{ポテンシャル$h(\theta)$を対数事後分布として、慣性付きの勾配法を進めて、$L$ステップ後 の値を$\theta_a$とする。}
+% 	\item{$r=exp(H(\theta_t,p_t)−H(\theta_a,p_a))$を求める。}
+% 	\item{確率${\rm min}(1, r)$でパラメータ$\theta_a$を受容する。}
+% \end{enumerate}
+% ここで、$H$はハミルトニアンで、$H(\theta,p) = h(\theta) + 1p\cdot p$である。
+
+
+\section{ジーンズ方程式 \label{sec_JeansEq}}
 \subsection{無衝突ボルツマン方程式}
 無衝突ボルツマン方程式は次のような式である。
 \begin{align}
 	\frac{\partial f}{\partial t} + \bm{v} \cdot \frac{\partial f}{\partial \bm{x}} - \frac{\partial \Phi}{\partial \bm{x}} \cdot \frac{\partial f}{\partial \bm{v}} = 0 \label{CBE}
 \end{align}
-
+ここで、$f$は分布関数であり、位置と速度に関する関数$f(\pmb{x},\pmb{v})$である。ある$\pmb{x}、\pmb{v}$に星が存在する確率を表す。
 
 \subsection{球対称系でのジーンズ方程式}
 球座標系と直交座標系の間の変換式は次のようになる。
@@ -390,7 +379,7 @@ MCMC 法のアルゴリズムは、以下の通りである。
 と表される。球座標系の場合、各座標軸の速度は
 \begin{align}
 	\begin{cases}
-		v_r &= \frac{\partial r}{\partial t}|\frac{\partial \bm r}{\partial r}| = \dot{r}\\
+		v_R &= \frac{\partial r}{\partial t}|\frac{\partial \bm r}{\partial r}| = \dot{r}\\
 		v_{\theta} &= \frac{\partial \theta}{\partial t}|\frac{\partial \bm r}{\partial \theta}| = r\dot{\theta}\\
 		v_{\phi} &= \frac{\partial \phi}{\partial t}|\frac{\partial \bm r}{\partial \phi}| = r\sin\theta\dot{\phi}\\
 	\end{cases}
@@ -402,25 +391,25 @@ MCMC 法のアルゴリズムは、以下の通りである。
 で定義される。球座標系での運動量は次のように表される。
 \begin{align}
 	\begin{cases}
-		p_r &= \frac{\partial \mathcal{L}}{\partial r} = \dot{r} = v_r \\
+		p_r &= \frac{\partial \mathcal{L}}{\partial r} = \dot{r} = v_R \\
 		p_{\theta} &= \frac{\partial \mathcal{L}}{\partial \theta} = r^2\dot{\theta} = r v_{\theta} \\
 		p_{\phi} &= \frac{\partial \mathcal{L}}{\partial \phi} = r^2\sin^2\theta\dot{\phi} = r\sin\theta v_{\phi} \label{momenta}
 	\end{cases}
 \end{align}
 また、体積積分は、ヤコビアン$\mathcal{J}$を用いて
 \begin{align}
-	\int dp_r dp_{\theta} dp_{\phi}f &= \int \mathcal{J} dv_r dv_{\theta} dv_{\phi}\\
+	\int dp_r dp_{\theta} dp_{\phi}f &= \int \mathcal{J} dv_R dv_{\theta} dv_{\phi}\\
 	&=
 	\int
 	\left|
 	\begin{array}{ccc}
-	 	\cfrac{\partial p_r}{\partial v_r} & \cfrac{\partial p_r}{\partial v_{\theta}} & \cfrac{\partial p_r}{\partial v_{\phi}}\\
-		\cfrac{\partial p_{\theta}}{\partial v_r} & \cfrac{\partial p_{\theta}}{\partial v_{\theta}} & \cfrac{\partial p_{\theta}}{\partial v_{\phi}}\\
-		\cfrac{\partial p_{\phi}}{\partial v_r} & \cfrac{\partial p_{\phi}}{\partial v_{\theta}} & \cfrac{\partial p_{\phi}}{\partial v_{\phi}}
+	 	\cfrac{\partial p_r}{\partial v_R} & \cfrac{\partial p_r}{\partial v_{\theta}} & \cfrac{\partial p_r}{\partial v_{\phi}}\\
+		\cfrac{\partial p_{\theta}}{\partial v_R} & \cfrac{\partial p_{\theta}}{\partial v_{\theta}} & \cfrac{\partial p_{\theta}}{\partial v_{\phi}}\\
+		\cfrac{\partial p_{\phi}}{\partial v_R} & \cfrac{\partial p_{\phi}}{\partial v_{\theta}} & \cfrac{\partial p_{\phi}}{\partial v_{\phi}}
 	\end{array}
 	\right| 
-	 dv_r dv_{\theta} dv_{\phi}\\
-	&= r^2\sin\theta \int dv_r dv_{\theta} dv_{\phi}f = r^2 \sin\theta \nu    \label{integral}
+	 dv_R dv_{\theta} dv_{\phi}\\
+	&= r^2\sin\theta \int dv_R dv_{\theta} dv_{\phi}f = r^2 \sin\theta \nu    \label{integral}
 \end{align}
 と変換できる。
 
@@ -448,7 +437,7 @@ MCMC 法のアルゴリズムは、以下の通りである。
 \begin{align}
 \begin{aligned}
 	\int p_r\frac{\partial f}{\partial r}dp_r dp_{\theta} dp_{\phi} &= \frac{\partial}{\partial r} \int p_r^2 f dp_r dp_{\theta} dp_{\phi} \\
-	&= \frac{\partial}{\partial r} \left(r^2\sin\theta \int p_r^2f dv_r dv_{\theta} dv_{\phi} \right) \\
+	&= \frac{\partial}{\partial r} \left(r^2\sin\theta \int p_r^2f dv_R dv_{\theta} dv_{\phi} \right) \\
 	&= \frac{\partial}{\partial r} \left(r^2\sin\theta \nu \overline{p_r^2} \right) \\
 \end{aligned}
 \end{align}
@@ -477,13 +466,13 @@ MCMC 法のアルゴリズムは、以下の通りである。
 \end{aligned}
 \end{align}
 
-となる。また、任意の球対称系では分布関数は$f(\mathcal{H}, \bm L)$の形になり、そのため$v_r$の偶関数となるから、$\overline{p_r p_{\theta}} = r\overline{v_r v_{\theta}}$は消えなければならないため、式(\ref{CBE_spherical_simple})は
+となる。また、任意の球対称系では分布関数は$f(\mathcal{H}, \bm L)$の形になり、そのため$v_R$の偶関数となるから、$\overline{p_r p_{\theta}} = r\overline{v_R v_{\theta}}$は消えなければならないため、式(\ref{CBE_spherical_simple})は
 \begin{align}
 	\frac{\partial}{\partial r}(r^2\sin\theta\nu\overline{p_r^2}) + \frac{\partial}{\partial \theta}(\sin\theta\nu\overline{p_rp_{\theta}}) + r^2\sin\theta\nu\left(\frac{d\Phi}{dr} - \frac{\overline{p_{\theta}^2}}{r^3} - \frac{\overline{p_{\phi}^2}}{r^3\sin^2\theta}\right)
 \end{align}
 となる。最後に、$r^2\sin\theta$で割り、式(\ref{momenta})を用いると
 \begin{align}
-	\frac{d(\nu \overline{v_r^2})}{dr} + \nu \left(\frac{d\Phi}{dr} + \frac{2\overline{v_r^2} - \overline{v_{\theta}^2} - \overline{v_{\phi}^2}}{r} \right) = 0
+	\frac{d(\nu \overline{v_R^2})}{dr} + \nu \left(\frac{d\Phi}{dr} + \frac{2\overline{v_R^2} - \overline{v_{\theta}^2} - \overline{v_{\phi}^2}}{r} \right) = 0
 \end{align} 
 という式になる。
 
@@ -549,7 +538,7 @@ MCMC 法のアルゴリズムは、以下の通りである。
 		\cfrac{\partial p_{\phi}}{\partial v_R} & \cfrac{\partial p_z}{\partial v_{\phi}} & \cfrac{\partial p_z}{\partial v_z}
 	\end{array}
 	\right| 
-	 dv_r dv_{\phi} dv_{\phi}\\
+	 dv_R dv_{\phi} dv_{\phi}\\
 	&= R \int dv_R dv_{\phi} dv_z f = R \nu    \label{integral_Cylindrical}
 \end{aligned}
 \end{align}
@@ -572,7 +561,7 @@ MCMC 法のアルゴリズムは、以下の通りである。
 \end{align}
 と簡単に書ける。この式に$p_R$をかけて全運動量で積分し、式(\ref{momenta_Cylindrical})を用いて、球座標系の場合と似た論理により
 \begin{align}
-	\frac{\partial (\nu \overline{v_R^2})}{\partial R} + \frac{\partial (\nu \overline{v_R v_z})}{\partial R} + \nu\left(\frac{\overline{v_r^2} - \overline{v_{\phi}^2}}{R} + \frac{\partial \Phi}{\partial R} \right) = 0   \label{Jeans_Cylindrical_pr}
+	\frac{\partial (\nu \overline{v_R^2})}{\partial R} + \frac{\partial (\nu \overline{v_R v_z})}{\partial R} + \nu\left(\frac{\overline{v_R^2} - \overline{v_{\phi}^2}}{R} + \frac{\partial \Phi}{\partial R} \right) = 0   \label{Jeans_Cylindrical_pr}
 \end{align}
 となる。式(\ref{CBE_Cylindrical_simple})に$p_{\phi}, p_z$をかけて同様の操作をすると、次の式を得る。
 \begin{align}
@@ -593,41 +582,42 @@ $\overline{v_R^2}(R,z)$は分かっているので、式(\ref{Jeans_Cylindrical_
 \section{座標変換}
 \subsection{位置の座標変換}
 
-\subsubsection{赤道直角座標系と赤道座標系}
-赤道直角座標系の基底ベクトルを$({\bf e}_{\xi},{\bf e}_{\eta},{\bf e}_{\zeta})$、赤道座標系の基底ベクトルを$({\bf e}_{\alpha},{\bf e}_{\delta},{\bf e}_{\gamma})$
+% \subsubsection{赤道直角座標系と赤道座標系}
+% 赤道直角座標系の基底ベクトルを$({\bf e}_{\xi},{\bf e}_{\eta},{\bf e}_{\zeta})$、赤道座標系の基底ベクトルを$({\bf e}_{\alpha},{\bf e}_{\delta},{\bf e}_{\gamma})$
 
-基底ベクトルの変換は、
-\begin{align}
-\begin{aligned}
-    \left(
-	\begin{array}{c}
-	 	{\bf e}_{\xi}\\
-		{\bf e}_{\eta}\\
-		{\bf e}_{\zeta}
-	\end{array}
-	\right)
-	=
-	\left(
-	\begin{array}{ccc}
-	 	-\sin{\alpha} & -\cos{\alpha}\sin{\delta} & \cos{\alpha}\cos{\delta}\\
-		\cos{\alpha} & -\sin{\alpha}\cos{\delta} & \sin{\alpha}\cos{\delta}\\
-		0 & \cos{\delta} & \sin{\delta}
-	\end{array}
-	\right)
-	\left(
-	\begin{array}{c}
-	 	{\bf e}_{\alpha}\\
-		{\bf e}_{\delta}\\
-		{\bf e}_{\gamma}
-	\end{array}
-	\right)
-\end{aligned}
-\end{align}
+% 基底ベクトルの変換は、
+% \begin{align}
+% \begin{aligned}
+%     \left(
+% 	\begin{array}{c}
+% 	 	{\bf e}_{\xi}\\
+% 		{\bf e}_{\eta}\\
+% 		{\bf e}_{\zeta}
+% 	\end{array}
+% 	\right)
+% 	=
+% 	\left(
+% 	\begin{array}{ccc}
+% 	 	-\sin{\alpha} & -\cos{\alpha}\sin{\delta} & \cos{\alpha}\cos{\delta}\\
+% 		\cos{\alpha} & -\sin{\alpha}\cos{\delta} & \sin{\alpha}\cos{\delta}\\
+% 		0 & \cos{\delta} & \sin{\delta}
+% 	\end{array}
+% 	\right)
+% 	\left(
+% 	\begin{array}{c}
+% 	 	{\bf e}_{\alpha}\\
+% 		{\bf e}_{\delta}\\
+% 		{\bf e}_{\gamma}
+% 	\end{array}
+% 	\right)
+% \end{aligned}
+% \end{align}
 
 
 \subsubsection{銀河直角座標系と銀河座標系}
-x軸:銀河中心方向($l=0^{\circ}, b=0^{\circ}$)\\
-z軸:銀河北極(North Galactic Pole)方向($b=90^{\circ}$)\\
+x軸:銀河中心方向($l=0^{\circ}, b=0^{\circ}$)
+
+z軸:銀河北極(North Galactic Pole)方向($b=90^{\circ}$)
 \begin{align}
 \begin{aligned}
 	\left(
@@ -775,6 +765,62 @@ $i = 90^{\circ} - \delta_{\rm GP}$\\
     &\sin \delta& &= \sin b \cos i + \cos b \sin(l-l_0) \sin i
 \end{alignat}
 
+
+
+
+\subsection{固有運動、視線速度への変換}
+座標系と速度の向きを図(\ref{fig:coordinates})のようにとる。このとき、
+\begin{align}
+\begin{aligned}
+    \begin{cases}
+    x = -R\cos{\phi}\\
+    y = -R\sin{\phi}
+    \end{cases}
+\end{aligned}
+\end{align}
+
+\begin{align}
+\begin{aligned}
+    \begin{cases}
+    R = \sqrt{x^2 + y^2}\\
+    \phi = \arctan{c\frac{y}{x}}
+    \end{cases}
+\end{aligned}
+\end{align}
+
+
+\begin{align}
+\begin{aligned}
+	\left(
+	\begin{array}{c}
+	 	V_x \\
+	 	V_y
+	\end{array}
+	\right)
+	=
+	\left(
+	\begin{array}{cc}
+	 	\cos{\phi} & \sin{\phi}\\
+	 	-\sin{\phi} & \cos{\phi}
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{cc}
+	 	V_{\phi} \\
+	 	V_{\phi}
+	\end{array}
+	\right)
+\end{aligned}
+\end{align}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \subsection{空間速度ベクトルの座標変換}
 \begin{align}
 \begin{aligned}
@@ -782,7 +828,7 @@ $i = 90^{\circ} - \delta_{\rm GP}$\\
 	\begin{array}{c}
 	 	V_l\\
 		V_b\\
-		V_r\\
+		v_R\\
 	\end{array}
 	\right)
 	&=
@@ -924,9 +970,9 @@ $Galactic \ parallactic \ angle \ \phi$は球面三角公式を使えば次の�
 
 以下では、一次誤差伝搬の式を示す。我々は、距離の誤差$\sigma_d$を知っていると仮定する。 距離が視差として測定される場合、この距離の不確実性は$\sigma_d = \sigma/\varpi^2$で与えられる。上の変換の非線形性の適切な説明は、この一次計算を超えたり、モンテカルロ不確かさの伝播を採用したりする必要がある。
 
-\subsubsection{Cov$(d,v_r,\mu_{\alpha},\mu_{\delta})$ to Cov$(U,V,W)$}
-誤差伝搬Cov$(d,v_r,\mu_{\alpha},\mu_{\delta})$ to Cov$(U,V,W)$は次の二つのパートに分けられる。(1)Cov$(d,\mu_{\alpha},\mu_{\delta})$からCov$(v_{\alpha},v_{\delta})$\\
-(2)Cov$(v_r,v_{\alpha},v_{\delta})$からCov$(U,V,W)$。\\
+\subsubsection{Cov$(d,v_R,\mu_{\alpha},\mu_{\delta})$ to Cov$(U,V,W)$}
+誤差伝搬Cov$(d,v_R,\mu_{\alpha},\mu_{\delta})$ to Cov$(U,V,W)$は次の二つのパートに分けられる。(1)Cov$(d,\mu_{\alpha},\mu_{\delta})$からCov$(v_{\alpha},v_{\delta})$\\
+(2)Cov$(v_R,v_{\alpha},v_{\delta})$からCov$(U,V,W)$。\\
 ここで、$v_{\alpha} \equiv \frac{\kappa}{\varpi} \mu_{\alpha} \cos \delta, v_{\delta} \equiv \frac{\kappa}{\varpi}\mu_{\delta}$となる。
 
 変換(1)は非線形である。そのため、次のようにヤコビアンを計算する。
@@ -946,10 +992,10 @@ $Galactic \ parallactic \ angle \ \phi$は球面三角公式を使えば次の�
 
 変換(2)は次のようになる。
 \begin{align}
-    {\rm Cov}(U,V,W) = \mathbf{T \ A} \ {\rm Cov}(v_r,v_{\alpha},v_{\delta}) \ \mathbf{A^{\rm T} \ T^{\rm T}}
+    {\rm Cov}(U,V,W) = \mathbf{T \ A} \ {\rm Cov}(v_R,v_{\alpha},v_{\delta}) \ \mathbf{A^{\rm T} \ T^{\rm T}}
 \end{align}
 
-\subsubsection{Cov$(d,v_r,\mu_{\alpha},\mu_{\delta})$ to Cov$(U,V,W)$}
+\subsubsection{Cov$(d,v_R,\mu_{\alpha},\mu_{\delta})$ to Cov$(U,V,W)$}
 この誤差伝搬は上の変換と似ている。
 
 \subsubsection{Cov$(\mu_{\alpha},\mu_{\delta})$ to Cov$(\mu_l,\mu_b)$}
@@ -968,182 +1014,14 @@ $Galactic \ parallactic \ angle \ \phi$は球面三角公式を使えば次の�
 \end{align}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{模擬データ生成コード}
+以下のコードは本論文で行った模擬データ生成のコードである。このコードは\ref{解析3}の速度楕円体を傾けた速度場の模擬データを生成するために使用したコードである。Pythonで記述している。
+\lstinputlisting[language=Python,label=code1]{code/MockGenerate_N.py}
 
-\subsection{固有運動、視線速度への変換}
-ある星と太陽との距離を$d$とする。銀経を$l$とすると、$x = d\cos l,y = d \sin l$と書ける。ある星の視線速度$v^*_d$は次の式で表さ
-れる。以下、$d$の2次の項は無視する。
-\begin{align}
-\begin{aligned}
-	v^*_d &= \frac{1}{d} {\bm r} \cdot {\bm v} \\
-	      &= \frac{1}{d} (x,y) \cdot (\delta v_x, \delta v_y) \\
-	      &\simeq \frac{1}{d} [(K+C)x^2 + (K-C)y^2 + 2Axy] \\
-	      &= \frac{1}{d} [K(x^2 + y^2) + C(x^2 - y^2) + 2Axy] \\
-	      &= d(K + C\cos2l + A\sin2l)
-\end{aligned}
-\end{align}
-となる。
-
-式(9)は、同じくらいの距離の星の視線速度を測定し、銀経$l$の関数としての結果をプロットすることで定数$A, C, K$を決定することができることを示している。この$K$はオールト定数$K$に対応している。$K$は銀河円盤に垂直な成分（$z$方向）である。銀河円盤面に近い（$z$が小さい）星の$z$方向成分の分布は、銀河円盤面から離れた場所までを含む星の鉛直速度の分布とはかなり異なる。そのため、$|b|<5\rm{deg}$と$b$全体とでは、鉛直速度の分布は大きく異なるため、それぞれで得られる$K$の値は大きく異なる。
-\vspace{40pt}
-
-定数$B$は星の固有運動から求めることができる。視線速度に垂直な速度成分を$v^*_l$とすると、
-\begin{align}
-\begin{aligned}
-	v^*_l &= \frac{1}{d}({\bm x} \times \delta{\bm v})_z = \frac{1}{d}(x\delta v_y - y\delta v_x)\\
-	&= \frac{1}{d}[a(x^2 - y^2) + b(x^2 - y^2) - 2cxy] \\
-	&= d(a\cos2l - c \sin2l + b)
-\end{aligned}
-\end{align}
-となる。したがって、固有運動$\mu^*_l = v_t/d$を$l$の関数としたプロットから$A, B, C$を決定することができる。これらを書くと、
-\begin{align}
-\begin{cases}
-	v^*_d = d(K + C\cos2l + A\sin2l) & \\
-	v^*_l = d(a\cos2l - c \sin2l + b) &
-\end{cases}
-\end{align}
-となる。太陽運動$(u_0,v_0)$を考えると、
-\begin{align}
-\begin{aligned}
-	\left(
-	\begin{array}{c}
-	 	v_{d_0}\\
-		v_{l_0}\\
-	\end{array}
-	\right)
-	&=
-	\left(
-	\begin{array}{cc}
-	 	\cos l & \sin l\\
-		-\sin l & \cos l\\
-	\end{array}
-	\right)
-	\left(
-	\begin{array}{c}
-	 	u_0\\
-		v_0\\
-	\end{array}
-	\right) \\
-	&=
-	\left(
-	\begin{array}{c}
-	 	u_0 \cos l + v_0 \sin l\\
-		-u_0 \sin l + v_0 \cos l\\
-	\end{array}
-	\right)
-\end{aligned}
-\end{align}
-であるから、太陽運動を含めた視線速度$v_d$、固有速度$v_l$は
-\begin{align}
-\begin{cases}
-	v_d = -v_{d_0} + v^*_d = -u_0 \cos l - v_0 \sin l + d(K + C \cos 2l + A \sin 2l) &\\
-	v_l = -v_{l_0} + v^*_l = u_0 \sin l - v_0 \cos l + d(B + A \cos 2l - C \sin 2l) & 
-\end{cases}
-\end{align}
-となる。
-
-実際には天の川銀河はフラットではなく3次元である。そのため、$v_d,v_l$の式を直接的には使えない。銀河円盤面の外の星を一般化するために以下の式を使う。
-\begin{subequations}
-\begin{align}
-	\varpi &= d^{-1} \cos b \\
-	v_r &= v_d \cos b + v_z \sin b \\
-	\mu^*_l &= \varpi v_l \\
-	\mu_b &= \varpi(v_z \cos b - v_d \sin b)
-\end{align}
-\end{subequations}
-このとき、
-\begin{subequations}
-\begin{align}
-	\mu^*_l(l_i,b_i,\varpi_i) &= (A\cos2l_i - C\sin2l_i + B)\cos b_i + \varpi_i(u_0\sin l_i - v_0\cos l_i) \\
-	\mu_b(l_i,b_i,\varpi_i) &= -(A\sin2l_i + C\cos2l_i + K)\sin b_i \cos b_i \nonumber \\
-	                          & \hspace{2cm} + \varpi_i[(u_0\cos l_i + v_0 \sin l_i)\sin b_i - w_0 \cos b_i] \\
-	v_r(l_i,b_i,\varpi_i) &= (K + C\cos2l_i + A\sin2l_i)\cos^2 b_i / \varpi \nonumber \\
-	                      & \hspace{2cm} - [(u_0\cos l_i + v_0 \sin l_i)\cos b_i + w_0 \sin b_i]
-\end{align}
-\end{subequations}
-となる。ここで、添字$i$は星ごとの観測量であることを示す。また$\mu^*_l \equiv \mu_l \cos b$である。
-
-asymmetric drift項を追加することを考える。円筒座標系で$(0,v_a,0)$とする。銀河座標系でのasymmetric drift項を$(v_{a,l},v_{a,b},v_{a,\gamma})$と書くと、
-\begin{align}
-\begin{aligned}
-	\left(
-	\begin{array}{c}
-	 	v_{a,l}\\
-		v_{a,b}\\
-		v_{a,\gamma}
-	\end{array}
-	\right)
-	=& \bf{S} \bf{T}
-	\left(
-	\begin{array}{c}
-	 	0\\
-		v_a\\
-		0
-	\end{array}
-	\right)
-\end{aligned}
-\end{align}
-となる。asymmetric drift項を追加した式は
-\begin{subequations}
-\begin{align}
-	\mu^*_l(l_i,b_i,\varpi_i) &= (A\cos2l_i - C\sin2l_i + B)\cos b_i + \varpi_i(u_0\sin l_i - v_0\cos l_i) - v_{a,l} \\
-	\mu_b(l_i,b_i,\varpi_i) &= -(A\sin2l_i + C\cos2l_i + K)\sin b_i \cos b_i \nonumber \\
-	                          & \hspace{2cm} + \varpi_i[(u_0\cos l_i + v_0 \sin l_i)\sin b_i - w_0 \cos b_i] - v_{a,b} \\
-	v_r(l_i,b_i,\varpi_i) &= (K + C\cos2l_i + A\sin2l_i)\cos^2 b_i / \varpi \nonumber \\
-	                      & \hspace{2cm} - [(u_0\cos l_i + v_0 \sin l_i)\cos b_i + w_0 \sin b_i] - v_{a,\gamma}
-\end{align}
-\end{subequations}
-となる。
-
-
-座標系と速度の向きを図(\ref{fig:coordinates})のようにとる。このとき、
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    x = -R\cos{\phi}\\
-    y = -R\sin{\phi}
-    \end{cases}
-\end{aligned}
-\end{align}
-
-\begin{align}
-\begin{aligned}
-    \begin{cases}
-    R = \sqrt{x^2 + y^2}\\
-    \phi = \arctan{c\frac{y}{x}}
-    \end{cases}
-\end{aligned}
-\end{align}
-
-
-\begin{align}
-\begin{aligned}
-	\left(
-	\begin{array}{c}
-	 	V_x \\
-	 	V_y
-	\end{array}
-	\right)
-	=
-	\left(
-	\begin{array}{cc}
-	 	\cos{\phi} & \sin{\phi}\\
-	 	-\sin{\phi} & \cos{\phi}
-	\end{array}
-	\right)
-	\left(
-	\begin{array}{cc}
-	 	V_{\phi} \\
-	 	V_{\phi}
-	\end{array}
-	\right)
-\end{aligned}
-\end{align}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{MCMCコード}
+以下のコードは本論文で行ったMCMCによる解析のコードである。Pythonで記述しており、MCMCの計算にはemcee(\cite{Foreman2013})を使用している。
+\lstinputlisting[language=Python,label=code2]{code/mcmc_fitting_mockcatalog_asymmetric_drift_newModel_32.py}
