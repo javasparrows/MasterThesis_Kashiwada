@@ -15,33 +15,80 @@
 % また火曜日に議論しましょう。とりあえず、まだ書いていない 3.3.6、3.3.7も書いてみてください。
 
 
-位置・速度の6次元位相空間観測データの模擬データを生成し、それを解析することで、asymmetric drift、視線速度の有無、速度楕円体の傾き、太陽からの距離$D$、円盤面からの距離$|z|$、データ数のそれぞれの解析への影響を定量的に評価した。この章ではそれらの結果についてまとめる。
+本論文では、オールト定数と太陽運動を測定する上で実際の銀河系速度場を反映しない値を得てしまう可能性があることから、模擬データによる定量評価とその結果を踏まえた観測データ解析を行い正確なオールト定数と太陽運動の測定を目指す。観測データの解析では、解析結果の値が正しいのか間違っているのか、つまり実際の銀河系速度場を表した値なのかどうかを判断できない。なぜなら、当然ではあるが観測データ解析においては答えが分かっていないからである。そこで、観測データの代わりに解析に用いるモデルを利用して模擬データを生成し、それを解析する。それによって、正しい答え、すなわち模擬データのセッティングパラメータと解析結果のパラメータ値とを比較することができる。
 
+位置・速度の6次元位相空間情報を持つ模擬データを生成し、それを解析することで、asymmetric drift、視線速度情報を用いる解析と用いない解析、速度楕円体の傾き、太陽からの距離$D$、円盤面からの距離$|z|$、太陽と銀河中心との距離$R_{\odot}$のそれぞれの解析への影響を定量的に評価した。この章では模擬データの生成方法と解析結果についてまとめる。
 
 \section{模擬データの生成方法}
 観測方程式(\ref{ObsEq})に従う速度場を仮定し、密度分布には指数関数的密度分布$\rho(R,z) = \rho_0 e^{-R/h_R} e^{-z/h_z}、h_R=3\,\mathrm{kpc}、h_z=300\,\mathrm{pc}$\,(\cite{BH2016})を仮定している。ここで、$R,z$はそれぞれ円筒座標系での動径方向と鉛直方向の位置、$h_R、h_z$は$R、z$方向の密度分布のスケール長を示す。サンプル数は基本的に1000とし、太陽からの距離$D<1\,\mathrm{kpc}$としている。このときの3次元分布と1次元の頻度分布太陽の銀河中心からの距離は$R_{\odot} = 8.2\,\mathrm{kpc}$(\cite{BH2016})としている。また、asymmetric drift速度には式(\ref{AD3})を使用する。
 
-%\subsection{模擬データの生成コード}
-%以下に模擬データの作成コードのうちの1つを記述する。このコードではexponential diskを仮定し、太陽からの距離1kpc以内に1000個の星があるとしている。OLCODモデルに従った速度場を持たせている。
-%\lstinputlisting[language=Python]{code/MockGenerate.py}
+解析1から解析6までの6パターンで解析を行っている。解析1から解析5までの解析では、模擬データの生成に表\ref{table4}のようなパラメータセットを使用している。表\ref{table6}は本論文で生成した模擬データのデータセットである。asymmetric driftを模擬データで考慮するかしないか、速度楕円体の傾きの角度、サンプル星の太陽からの距離の最大値、サンプル星の円盤面からの距離の最大値を変更して複数の種類のデータを生成している。表\ref{VelocityDispersion}は\cite{YL18}で調べられた年齢速度分散関係の表であり、今回の模擬データ生成では表\ref{VelocityDispersion}の年齢速度分散関係を仮定している。
 
-\begin{figure*}[htbp]
+\begin{table}
 \begin{center}
-	\includegraphics[width=9cm]{fig/3dMockData.pdf}
-	\caption{1000個の星の模擬データの3次元分布} \label{dist3dMockData}
-\end{center}
-\end{figure*}
-
-\begin{figure*}
-   \centering
-\begin{tabular}{ccc}
-\includegraphics[width=4.5cm]{fig/dist_x.pdf}&
-\includegraphics[width=4.5cm]{fig/dist_y.pdf}&
-\includegraphics[width=4.5cm]{fig/dist_z.pdf}
+%\scalebox{0.5}
+%\scriptsize
+%\footnotesize
+%\small
+\begin{tabular}{l|c} \hline
+ \rowcolor{LightCyan}
+ パラメータ & 値\\
+ \hline
+ $A$ & 18 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
+ \hline
+ $B$ & -11 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
+ \hline
+ $C$ & -2 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
+ \hline
+ $K$ & -1 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
+ \hline
+ $U_{\odot}$ & 9 $\mathrm{km\,s^{-1}}$\\
+ \hline
+ $V_{\odot}$ & 11 $\mathrm{km\,s^{-1}}$\\
+ \hline
+ $W_{\odot}$ & 7.5 $\mathrm{km\,s^{-1}}$\\
+ \hline
+ $R_{\odot}$ & 8.2 $\mathrm{kpc}$\\
+ \hline
 \end{tabular}
-    \caption{1000個の星の模擬データの頻度分布。$x、y、z$は太陽を支点とした直交座標系の軸の向きで、それぞれ銀河中心方向、銀河回転方向、銀河北極方向である。左の図から順に横軸は$x、y、z$、縦軸はそれぞれの値の範囲である。ビンは100 pcごとにしている。}
-    \label{distMockData}
-\end{figure*}
+\vspace{3mm}
+\caption{模擬データ生成で用いた各パラメータの設定値。}
+\label{table4}
+\end{center}
+\end{table}
+
+\begin{table}
+\begin{center}
+%\scalebox{0.5}
+%\scriptsize
+%\footnotesize
+%\small
+\begin{tabular}{c|c|c|c|c} \hline
+ \rowcolor{LightCyan}
+ データ名 & ADあり/なし & VE & $D_{\mathrm{max}}\,(\si{kpc})$ & $z_{\mathrm{max}}\,(\si{kpc})$\\
+ \hline
+ A & $\bigcirc$ & $0^{\circ}$ & 1 & 1\\
+ \hline
+ B & $\times$ & $0^{\circ}$ & 1 & 1\\
+ \hline
+ B-VE20 & $\times$ & $20^{\circ}$ & 1 & 1\\
+ \hline
+ B-VE40 & $\times$ & $40^{\circ}$ & 1 & 1\\
+ \hline
+ B-D03 & $\times$ & $0^{\circ}$ & 0.3 & 1\\
+ \hline
+ B-D06 & $\times$ & $0^{\circ}$ & 0.6 & 1\\
+ \hline
+ B-z01 & $\times$ & $0^{\circ}$ & 1 & 0.1\\
+ \hline
+ B-z03 & $\times$ & $0^{\circ}$ & 1 & 0.3\\
+ \hline
+\end{tabular}
+\vspace{3mm}
+\caption{生成した模擬データセット。ADはasymmetric drift、VEは速度楕円体 (velocity ellipsoid)、$D_{\mathrm{max}}$はサンプル星の太陽からの距離の最大値、$z_{\mathrm{max}}$はサンプル星の円盤面からの距離の最大値のことである。サンプル数は全て$10^3$、太陽と銀河中心との距離は全て$R_{\odot}=8.2\,\si{kpc}$としている。}
+\label{table6}
+\end{center}
+\end{table}
 
 \begin{table}
 \begin{center}
@@ -83,23 +130,74 @@
 \end{center}
 \end{table}
 
+図\ref{dist3dMockData}、\ref{distMockData}は以上のパラメータセットで生成したサンプル数1000での模擬データの3次元分布と頻度分布である。頻度分布の方を見ると、サンプル数が1000個のためランダム性が排除できていないが、指数関数的密度分布$\rho(R,z) = \rho_0 e^{-R/h_R} e^{-z/h_z}$にしたがっていることがわかる。
+
+%\subsection{模擬データの生成コード}
+%以下に模擬データの作成コードのうちの1つを記述する。このコードではexponential diskを仮定し、太陽からの距離1kpc以内に1000個の星があるとしている。OLCODモデルに従った速度場を持たせている。
+%\lstinputlisting[language=Python]{code/MockGenerate.py}
+
+
+\begin{figure*}[htbp]
+\begin{center}
+	\includegraphics[width=9cm]{fig/3dMockData.pdf}
+	\caption{1000個の星の模擬データの3次元分布}
+	\label{dist3dMockData}
+\end{center}
+\end{figure*}
+
+\begin{figure*}
+   \centering
+\begin{tabular}{ccc}
+\includegraphics[width=4.5cm]{fig/dist_x.pdf}&
+\includegraphics[width=4.5cm]{fig/dist_y.pdf}&
+\includegraphics[width=4.5cm]{fig/dist_z.pdf}
+\end{tabular}
+    \caption{1000個の星の模擬データの頻度分布。$x、y、z$は太陽を原点とした直交座標系の軸の向きで、それぞれ銀河中心方向、銀河回転方向、銀河北極方向である。左の図から順に横軸は$x、y、z$、縦軸はそれぞれの値の範囲である。ビンは100 pcごとにしている。}
+    \label{distMockData}
+\end{figure*}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{解析方法}
-この節では、第\ref{chapTheory}章を踏まえてデータの解析方法を説明する。まず本研究の解析で用いているベイズ推定について簡単に説明し、その後解析で使用している式や仮定について説明する。本論文では模擬データの生成と解析を7パターン行っており、それぞれの解析結果の詳細は\ref{模擬データの解析結果}で記述する。本節では、7パターンに共通する解析の基本的な部分を説明する。解析方法を大まかに分けると、asymmetric driftを考慮した場合と考慮しない場合とに分けられるため、この2パターンの解析方法については本節で説明する。
+この節では、第\ref{chapTheory}章を踏まえてデータの解析方法を説明する。まず本研究の解析で用いているベイズ推定について簡単に説明し、その後解析で使用している式や仮定について説明する。本論文では模擬データの生成と解析を6パターン行っており、それぞれの解析結果の詳細は\ref{模擬データの解析結果}で記述する。本節では、6パターンに共通する解析の基本的な部分を説明する。解析方法を大まかに分けると、asymmetric driftを考慮した場合と考慮しない場合とに分けられるため、この2パターンの解析方法については本節で説明する。
 
 \subsection{ベイズ推定の基礎 \label{ベイズ推定の基礎}}
-本研究では解析にベイズ推定(Bayesian Estimation)を用いる。ベイズ推定では、事後確率分布関数(Posterior probability distribution function; Posterior PDF)は事前確立分布関数(Prior PDF)、尤度関数(Likelihood function)を用いて次のように書ける。
+本研究では解析にベイズ推定(Bayesian Estimation)を用いるため、\cite{Statictics2012}に基づいてベイズ推定について説明する。
+
+あるランダムな事象$A$は0と1の間の確率prob$(A)$を持っているとする。この事象$A$が確実に起こるとき、$\mathrm{prob}(A)=1$となる。また、事象$A$と事象$B$が相互に排他的なとき、すなわち同時に起こらないとき、$\mathrm{prob}(A\,\mathrm{or}\,B)=\mathrm{prob}(A) + \mathrm{prob}(B)$となる。これはコルモゴロフの公理 (Kolmogorov axiom)と呼ばれる。
+
+この2つの事象$A、B$はの一方の確率がもう一方の確率に影響しないとき、$A、B$は独立であるという。このとき、コルモゴロフの公理から$\mathrm{prob}(A\,\mathrm{and}\,B)=\mathrm{prob}(A)\,\mathrm{prob}(B)$と書ける。しかし、時には独立が保たれないことがある。このときには条件付き確率というものを考える。条件$B$の下での$A$の条件付き確率は
 \begin{align}
-	事後確率分布関数 &= \frac{事前確率分布関数 \times 尤度関数}{観測値の分布関数} \\
-			&\propto 事前確率分布関数 \times 尤度関数
+\begin{aligned}
+	\mathrm{prob}(A|B) = \frac{\mathrm{prob}(A\,\mathrm{and}\,B)}{\mathrm{prob}(B)}
+\end{aligned}
 \end{align}
-事前確率分布とは、データが得られる前のある変数についての確率分布であり、事前確立分布関数は事前確率分布があるパラメータで書ける関数の形となっているものである。事後確率分布とは、事前確率分布にデータを入れた尤度関数を掛けて得られる分布であり、事後確立分布関数は事後確率分布があるパラメータで書ける関数の形となっているものである。尤度関数とは、あるデータが与えられたときに、そのデータの値の尤もらしさを出力する関数のことである。観測値の分布関数は確率の形に戻す(正規化する)ための定数と考えると、事前確率分布関数と尤度関数が重要なパラメータとなる。最尤推定法(Maximum Likelihood Estimation)は事前分布に一様分布を仮定しており尤度だけから真の値を推定するが、ベイズ推定では任意の事前分布をかけている。すると、$一様分布 \times 尤度関数$の確率分布の最頻値(尤度関数が最大の値)が最尤推定量となる。一方ベイズ推定では1つの値ではなく確率分布で与えられる。
+と定義される。このとき、
+\begin{align}
+\begin{aligned}
+	\mathrm{prob}(B|A) &= \frac{\mathrm{prob}(A\,\mathrm{and}\,B)}{\mathrm{prob}(B)}\\
+	&= \mathrm{prob}(A|B)\,\frac{\mathrm{prob}(B)}{\mathrm{prob}(A)}\\
+	&= \frac{\mathrm{prob}(A|B)\mathrm{prob}(B)}{\mathrm{prob}(A)}
+\end{aligned} \label{Bayesian}
+\end{align}
+と書け、この式はベイズの定理と呼ばれる。$\mathrm{prob}(B)$はデータが得られる前の想定されている確率であり、事前確率 (prior probability)と呼ばれる。この経験というものは尤度$\mathrm{prob}(A|B)$で表され、ある状況での尤もらしさを示す。最後に$\mathrm{prob}(B|A)$は事後確率 (posterior probability)と呼ばれ、データを用いて事前確率を修正した結果の確率である。
+
+ベイズ推定とは、ベイズ学習を繰り返すことで何らかのパラメータを推定する手法のことである。そこで、ベイズ学習について説明する。まず、ベイズの定理 (式(\ref{Bayesian}))と事前確率、尤度を用いて事後確率を計算したとする。さらにもう一度式(\ref{Bayesian})で計算しようとするとき、1回目の計算で得られた事後確率は2回目の事前確率として使用され、新たな事後確率が得られる。このように事後確率を更新していくことをベイズ学習と呼ぶ。
+
+一般的にベイズ推定がパラメータ推定に用いられる際には、ここまでの説明に出てきた確率は単なる1つの値ではなく確率分布として与えられることが多く、本研究でも確率分布として扱う。さらに、尤度はあるパラメータに関する関数、すなわち尤度関数として用いる。尤度関数とは、あるデータが与えられたときに、そのデータの値の尤もらしさを出力する関数のことである。ベイズ学習の中で確率$\mathrm{prob}(A)$が変わらないとき、式(\ref{Bayesian})から
+\begin{align}
+\begin{aligned}
+	\mathrm{prob}(B|A) \propto \mathrm{prob}(A|B)
+\end{aligned}
+\end{align}
+と書けるため、ベイズ推定では一般的に尤度関数が重要な要素となる。
+
+パラメータ推定法として広く使われる最尤推定法 (Maximum Likelihood Estimation)は事前確率に一様分布を仮定しており尤度だけから真の値を推定するが、ベイズ推定では任意の事前分布をかけている。すると、$一様分布\times 尤度関数$の確率分布の最頻値 (尤度関数の最大値)が最尤推定量となる。一方ベイズ推定では1つの値ではなく確率分布で与えられることから、パラメータを1つの値としてではなく確率分布として得たい場合には、ベイズ推定を用いることが好ましい。
 
 ベイズ推定として最も広く使われる解析手法がマルコフ連鎖モンテカルロ法(Markov chain Monte Carlo methods; MCMC)である。マルコフ連鎖を利用したモンテカルロ法を用いると、データの分布を計算せずに直接事後分布を求めることができる。マルコフ連鎖(Markov chain)とは、ひとつのステップの中で前のパラメータの尤度に基づいて次のパラメータを決めることをいう。また一般に、乱数を用いた計算アルゴリズムをモンテカルロ法(Monte Carlo method)と呼ぶ(モンテカルロがカジノで有名なためにこう名付けられたという。ラスベガス法という別の方法も存在する)。
 
-モンテカルロ法は、真にランダムにサンプリングを行うため
+モンテカルロ法では真にランダムにサンプリングを行うため、
 \begin{itemize}
 	\item{計算コストがかさむ}
 	\item{精度が向上しない}
@@ -113,6 +211,7 @@ MCMCのアルゴリズムは以下の通りである。
 	\item{分布が収束をするまで、(2)を繰り返す}
 \end{enumerate}
 基本的なアルゴリズムはこのようなものであるが、さらに具体的なアルゴリズムには高速化や精度の向上を目指していくつかの方法が開発されており、それらの一部に付録で触れることとする。本研究では、MCMCの解析に天文学研究で広く使われているemcee (\cite{Foreman2013}) を使用している。
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -129,34 +228,50 @@ MCMCによる解析では尤度関数を定義する必要がある。ここで�
 	&+ \left. \frac{\left[v_{\mathrm{los},i} - v^{\mathrm{OL}}_{\mathrm{los}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2} + {\rm ln}\left[\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2\right] \right)
 \end{aligned} \label{Likelihood_Mock}
 \end{align}
-と書ける。ここで、添字の$i$は$i$番目の星の値であることを示し、この添字があるパラメータは観測量である。また、$s_{\mu_{l,i}}、s_{\mu_{b,i}}、s_{v_{\mathrm{los},i}}$はそれぞれ$\mu_{l,i},\mu_{b,i},v_{\mathrm{los},i}$の観測誤差である。
+と書ける。ここで、添字の$i$は$i$番目の星の値であることを示し、この添字があるパラメータは観測量である。また、$s_{\mu_{l,i}}、s_{\mu_{b,i}}、s_{v_{\mathrm{los},i}}$はそれぞれ$\mu_{l,i},\mu_{b,i},v_{\mathrm{los},i}$の観測誤差である。また、$\mu_l^{\mathrm{OL}}、\mu_b^{\mathrm{OL}}、v^{\mathrm{OL}}_{\mathrm{los}}$には\ref{観測方程式}の式(\ref{ObsEq})を用いている。
 
-\subsubsection{(b) asymmetric driftを考慮する場合}
-フィッティングパラメータは同様に$A、B、C、K、U_{\odot}、V_{\odot}、W_{\odot}、\sigma_{\mu_l}、\sigma_{\mu_b}、\sigma_{v_{\mathrm{los}}}$の10個である。まず、以下の式で解析の準備を行う。
+\subsubsection{(b) asymmetric driftを考慮する場合 \label{asymmetric driftを考慮する場合}}
+フィッティングパラメータは同様に$A、B、C、K、U_{\odot}、V_{\odot}、W_{\odot}、\sigma_{\mu_l}、\sigma_{\mu_b}、\sigma_{v_{\mathrm{los}}}$の10個である。asymmetric driftを考慮する解析では、尤度関数$\mathcal{L}$には
+\begin{align}
+\begin{aligned}
+	\ln \mathcal{L} =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_{l,i} - \mu_l^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2\right] \right. \\
+	&+ \left. \frac{\left[\mu_{b,i} - \mu_b^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2\right] \right. \\
+	&+ \left. \frac{\left[v_{\mathrm{los},i} - v^{\mathrm{AD}}_{\mathrm{los}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2} + {\rm ln}\left[\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2\right] \right)
+\end{aligned} \label{Likelihood_Mock_AD}
+\end{align}
+を使う。ここで、添字の$i$は$i$番目の星の値であることを示し、この添字があるパラメータは観測量である。ADの添字が付いているモデルの式についてはを参照。この式の中の$\mu_l^{\mathrm{AD}}、\mu_b^{\mathrm{AD}}、v^{\mathrm{AD}}_{\mathrm{los}}$には式(\ref{ObsEqAD})を用いている。$\mu_l^{\mathrm{AD}}、\mu_b^{\mathrm{AD}}、v^{\mathrm{AD}}_{\mathrm{los}}$の中でasymmetric drift速度$v_{\mathrm{a}}$を用い、さらに$v_{\mathrm{a}}$には式(\ref{AD3})の$v_{\mathrm{a}}=\sigma^2_R/80\,\si{km.s^{-1}}$を採用する。この$v_{\mathrm{a}}$を求めるために$\sigma_R$を計算する必要があるため、以下では観測量から$\sigma_R$を得る上の過程を説明する。まず以下の式でその準備を行う。
 \begin{align}
 \begin{aligned}
 	D_i &= \varpi_i^{-1},\\
 	R_i &= \sqrt{D_i^2 + R_{\odot}^2 - 2D_iR_{\odot}\cos{l_i}},\\
-	\sin{a_i} &= \dfrac{D_i}{R_i}\sin{l_i},\\
-	\cos{a_i} &= \sqrt{1 - \sin^2{a_i}},
+	\sin{\phi_i} &= \dfrac{D_i}{R_i}\sin{l_i},\\
+	\cos{\phi_i} &= \sqrt{1 - \sin^2{\phi_i}},
 \end{aligned} \label{eq142}
 \end{align}
-$D_i、R_i、l_i、a_i$については図(\ref{coor_a})を参照。
-\begin{figure*}[htbp]
+$D_i、R_i、l_i、\phi_i$については図(\ref{coor_a})を参照。
+\begin{figure*}
 	\centering
 	\includegraphics[width=10cm]{fig/coordinate_a2.pdf}
 	\caption{星$i$と太陽、銀河中心の間のそれぞれの距離と角度の名称の定義。}
 	\label{coor_a}
 \end{figure*}
-asymmetric driftを考慮するために、銀河中心に対する星と太陽の速度が必要となる。$v_R$の平均値$\overline{v_R}=0$という仮定を用いると、
+
+asymmetric driftを考慮するために、銀河中心を静止基準とするときの星と太陽の速度が必要となる。$v_R$の平均値$\overline{v_R}=0$という仮定を用いると、式(\ref{eq2.5})から
 \begin{align}
-	v_{\mathrm{c}} = R_{\odot}(A-B) \label{eq153}
+	A - B =& \frac{1}{2}\left( \frac{V_{\phi}}{R_{\odot}} - \frac{\partial V_{\phi}}{\partial R} - \frac{1}{R_{\odot}}\frac{\partial v_{R}}{\partial \phi} \right)_{R=R_{\odot}} - 
+	\frac{1}{2}\left( -\frac{V_{\phi}}{R_{\odot}} - \frac{\partial V_{\phi}}{\partial R} + \frac{1}{R_{\odot}}\frac{\partial v_{R}}{\partial \phi} \right)_{R=R_{\odot}}\\
+	=& \frac{V_{\phi}}{R_{\odot}} - \frac{1}{R_{\odot}}\frac{\partial v_{R}}{\partial \phi} \\
+	=& \frac{V_{\phi}}{R_{\odot}}
+\end{align}
+であるから、
+\begin{align}
+	V_{\mathrm{\phi}} = R_{\odot}(A-B) \label{eq153}
 \end{align}
 と表せる。また、接線速度は
 \begin{align}
 \begin{aligned}
-	v_{l,i} =& \mu_{l,i}\varpi_i \kappa\\
-	v_{b,i} =& \mu_{b,i}\varpi_i \kappa
+	v_{l,i} =& \mu_{l,i}D_i \kappa\\
+	v_{b,i} =& \mu_{b,i}D_i \kappa
 \end{aligned}
 \end{align}
 と表せる。ここで、$\kappa=4.74047\,\si{km.s^{-1}.kpc^{-1}/(.mas.yr^{-1})}$は単位変換に用いられる定数である。円筒座標系の速度は
@@ -180,7 +295,7 @@ asymmetric driftを考慮するために、銀河中心に対する星と太陽�
 	+\left(
 	\begin{array}{c}
 	 	U_{\odot}\\
-		V_{\odot} + v_{\mathrm{c}}\\
+		V_{\odot} + V_{\mathrm{\phi}}\\
 		W_{\odot}
 	\end{array}
 	\right)
@@ -190,10 +305,10 @@ asymmetric driftを考慮するために、銀河中心に対する星と太陽�
 と変換される。ここから、$v_R$の標準偏差$\sigma_R$は
 \begin{align}
 \begin{aligned}
-	\sigma_R =& \sqrt{\frac{1}{N}\sum^N_i(v_{R,i} - \overline{v_R})^2}
+	\sigma_R = \sqrt{\frac{1}{N}\sum^N_i(v_{R,i} - \frac{1}{N}\sum^N_i v_{R,i})^2}
 \end{aligned}
 \end{align}
-と計算できる。asymmetric drift速度は式(\ref{AD3})を採用する。。このasymmetric drift速度を銀河座標系に変換すると
+と計算できる。ここで、$N$はサンプル星の数である。このasymmetric drift速度を銀河座標系に変換すると
 \begin{align}
 \begin{aligned}
 	\left(
@@ -213,24 +328,18 @@ asymmetric driftを考慮するために、銀河中心に対する星と太陽�
 	\right)
 \end{aligned}
 \end{align}
-のようになる。表記法は\ref{sec_ObsAD}と同様である。このとき尤度関数$\mathcal{L}$は
-\begin{align}
-\begin{aligned}
-	\ln \mathcal{L} =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_{l,i} - \mu_l^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2\right] \right. \\
-	&+ \left. \frac{\left[\mu_{b,i} - \mu_b^{\mathrm{AD}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2\right] \right. \\
-	&+ \left. \frac{\left[v_{\mathrm{los},i} - v^{\mathrm{AD}}_{\mathrm{los}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2} + {\rm ln}\left[\sigma_{v_{\mathrm{los}}}^2 + (s_{v_{\mathrm{los},i}})^2\right] \right)
-\end{aligned}
-\end{align}
-と書ける。ここで、添字の$i$は$i$番目の星の値であることを示し、この添字があるパラメータは観測量である。ADの添字が付いているモデルの式については式(\ref{ObsEqAD})を参照。
+のようになる。表記法は\ref{sec_ObsAD}と同様である。
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{模擬データの解析結果 \label{模擬データの解析結果}}
-模擬データの解析では表\ref{table5}で書いているようにasymmetric drift、視線速度の有無、速度楕円体の傾き、太陽からの距離、円盤面からの距離、サンプル数、太陽の銀河中心からの距離$R_{\odot}$の7つの効果を考える解析パターンで、模擬データ生成あるいは解析方法を変更してオールト解析における7つの効果を調べた。表\ref{table4}、\ref{table5}はそれぞれの解析で用いた模擬データの設定と仮定を示している。asymmetric driftについては解析に際して入れる必要がある場合のみ模擬データに入れている。また、太陽は円盤面上に位置していると仮定している。$R_{\odot}$の効果を調べる理由は、先行研究で使われている$R_{\odot}$の値がだいたい$\SI{7.5}{kpc}$から$\SI{8.5}{kpc}$の間でばらつきがあり一定ではないため、仮定する$R_{\odot}$の値が解析に大きな影響を及ぼさないかどうか調べたいためである。
+模擬データの解析では表\ref{table5}で書いているようにasymmetric drift、視線速度情報を用いる状況と用いない状況、速度楕円体の傾き、太陽からの距離、円盤面からの距離、サンプル数、太陽の銀河中心からの距離$R_{\odot}$の6つの効果を考える解析パターンで、模擬データ生成あるいは解析方法を変更してオールト解析における効果を調べた。表\ref{table4}、\ref{table5}はそれぞれの解析で用いた模擬データの設定と仮定を示している。asymmetric driftについては解析に際して入れる必要がある場合のみ模擬データに入れている。また、太陽は円盤面上に位置していると仮定している。$R_{\odot}$の効果を調べる理由は、先行研究で使われている$R_{\odot}$の値がだいたい$\SI{7.5}{kpc}$から$\SI{8.5}{kpc}$の間でばらつきがあり一定ではないため、仮定する$R_{\odot}$の値が解析に大きな影響を及ぼさないかどうか調べたいためである。
 
-表\ref{table5}で試行回数について書いているが、この場合の試行回数とはすなわち模擬データ1を生成してそれを解析する、模擬データ2を生成してそれをまた解析する、という風に、試行回数が例えば10の場合には模擬データ1から模擬データ10までの10個の模擬データを生成してそれぞれを全く同様に解析するという意味である。最終的な解析結果には、試行回数分の結果の値の平均値を使用する。解析6以外の解析ではサンプル数は全て1000としている。これは、1000個のサンプルならばある程度の精度が得られ、かつ計算時間も長すぎないという都合からである。なお、1000サンプルでも各解析結果の評価にポアソンノイズが影響してしまうため、模擬データを模擬データ1、模擬データ2のように10個生成し、それぞれを解析して10個の解析結果の平均値を使用している。
+MCMCの設定について説明する。初期値は表\ref{table4}の値のプラスマイナス5の範囲で一様に乱数を振って生成している。また、walkerは60、iterationは2000とし、burn-inは1000としている。walkerとはほぼ独立して尤度関数にしたがってパラメータ空間内を動いていく点のことである。iterationとは、MCMCのランダムサンプリングをする回数のことである。burn-inとは、MCMCのある時点までのサンプリング結果を捨てることであり、burn-inが1000、iterationが2000という場合には、サンプリング回数2000のうち最初の1000は捨てるということである。これは、MCMCによるパラメータ推定はすぐには収束しないことから、収束するまでのサンプリング結果は最終的な推定値の確率分布の計算には含めないためである。今回の模擬データ解析では、総じてサンプリング1000ではサンプリングに収束が見えたため、burn-inを1000としている。また、乱数を降るときの大きさ (proposal scale parameter)は2となっている。つまり、あるパラメータのある時点での推定値が10となっているとき、尤度を計算するために生成する次の値は9.8あるいは10.2となる。
+
+表\ref{table5}で試行回数について書いているが、この場合の試行回数とはすなわち模擬データ1を生成してそれを解析する、模擬データ2を生成してそれをまた解析する、という風に、試行回数が例えば10の場合には模擬データ1から模擬データ10までの10個の模擬データを生成してそれぞれを全く同様に解析するという意味である。最終的な解析結果には、試行回数分の結果の値の平均値を使用する。模擬データのサンプル数は全て1000としている。これは、1000個のサンプルならばある程度の精度が得られ、かつ計算時間も長すぎないという都合からである。なお、1000サンプルでも各解析結果の評価にポアソンノイズが影響してしまうため、乱数のシードを変えた模擬データを10個生成し、それぞれを解析して10個の解析結果の平均値を使用している。
 
 また、それぞれの解析結果で各パラメータの相対誤差fit-trueと絶対誤差$\log_{10}\left| \dfrac{\mathrm{fit} - \mathrm{true}}{\mathrm{true}}\right|$をプロットしているが、相対誤差の絶対値の大きさの順番と絶対誤差の大きさの順番は必ずしも一致しない。なぜなら、相対誤差を計算するときには試行回数分の解析ごとの相対誤差を足しているので、例えばtrueの値が1の場合に試行1の相対誤差が1で試行2の相対誤差が-1だった場合でこの2回の平均値を考えると、相対誤差は$[1+(-1)]/2=0$となる一方、絶対誤差は$[|1|+|-1|]/2=1$となり、複数の解析結果の平均値を使用しているために相対誤差の絶対値をとったものが絶対誤差になる訳ではない。
 
@@ -240,58 +349,21 @@ asymmetric driftを考慮するために、銀河中心に対する星と太陽�
 %\scriptsize
 %\footnotesize
 %\small
-\begin{tabular}{l|c} \hline
- \rowcolor{LightCyan}
- パラメータ & 値\\
- \hline
- $A$ & 18 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
- \hline
- $B$ & -11 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
- \hline
- $C$ & -2 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
- \hline
- $K$ & -1 $\mathrm{km\,s^{-1} kpc^{-1}}$\\
- \hline
- $U_{\odot}$ & 9 $\mathrm{km\,s^{-1}}$\\
- \hline
- $V_{\odot}$ & 11 $\mathrm{km\,s^{-1}}$\\
- \hline
- $W_{\odot}$ & 7.5 $\mathrm{km\,s^{-1}}$\\
- \hline
- $R_{\odot}$ & 8.2 $\mathrm{kpc}$\\
- \hline
-\end{tabular}
-\vspace{3mm}
-\caption{模擬データ生成で用いた各パラメータの設定値。}
-\label{table4}
-\end{center}
-\end{table}
-
-
-
-\begin{table}
-\begin{center}
-%\scalebox{0.5}
-%\scriptsize
-%\footnotesize
-%\small
 \begin{tabular}{l|c|c} \hline
  \rowcolor{LightCyan}
- 解析名 & asymmetric drift & 試行回数 \\
+ 解析名 & 模擬データにAD & 尤度関数にAD \\
  \hline
- 解析1: asymmetric driftの解析結果への影響 & 有 & 3\\
+ 解析1: asymmetric driftの解析結果への影響 &$\bigcirc$& $\bigcirc$\\
  \hline
- 解析2: 視線速度の有無による解析結果への影響 & 無 & 10\\
+ 解析2: 視線速度の有無による解析結果への影響 & $\times$ & $\times$\\
  \hline
- 解析3: 速度楕円体の傾きの解析結果への影響 & 無 & 10\\
+ 解析3: 速度楕円体の傾きの解析結果への影響 & $\times$ & $\times$\\
  \hline
- 解析4: 太陽からの距離の解析結果への影響 & 無 & 10\\
+ 解析4: 太陽からの距離の解析結果への影響 & $\times$ & $\times$\\
  \hline
- 解析5: 円盤面からの距離の解析結果への影響 & 無 & 10\\
+ 解析5: 円盤面からの距離の解析結果への影響 & $\times$ & $\times$\\
  \hline
- 解析6: サンプル数の解析結果への影響 & 無 & \ref{new_N}を参照\\
- \hline
- 解析7: $R_{\odot}$の値の解析結果への影響 & 有 & 3\\
+ 解析6: $R_{\odot}$の値の解析結果への影響 & $\bigcirc$ & $\bigcirc$\\
  \hline
 \end{tabular}
 \vspace{3mm}
@@ -305,12 +377,12 @@ asymmetric driftを考慮するために、銀河中心に対する星と太陽�
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{解析1: asymmetric driftの解析結果への影響}
-asymmetric driftの効果を入れた模擬データについて、asymmetric driftを考慮しない解析(観測方程式(\ref{ObsEq}))とasymmetric driftを考慮した解析(観測方程式(\ref{ObsEqAD}))との2通りの解析を行う。各パラメータの値は表\ref{table4}を用いている。asymmetric drift$v_{\mathrm{a}}$は、表の$\sigma_R$と式(\ref{AD3})から計算して$v_{\phi}\to v_{\phi}-v_{\mathrm{a}}$のようにして各年齢ごとに異なる値を入れる。図(\ref{fig:Mock_AD})はこの模擬データの解析結果である。asymmetric drift無しと有りでは、$A、B、V_{\odot}$で明らかな違いがある。特に$V_{\odot}$ではasymmetric drift有りの解析結果の設定値との差が顕著であり、相対誤差は100\%以上となっている。
+asymmetric driftの効果を入れた模擬データAについて、asymmetric driftを考慮しない解析(観測方程式(\ref{ObsEq}))とasymmetric driftを考慮した解析(観測方程式(\ref{ObsEqAD}))との2通りの解析を行う。asymmetric drift $v_{\mathrm{a}}$は、表の$\sigma_R$と式(\ref{AD3})から計算して$v_{\phi}\to v_{\phi}-v_{\mathrm{a}}$のようにして各年齢ごとに異なる値を入れる。図(\ref{fig:Mock_AD})はこの模擬データの解析結果である。asymmetric drift無しと有りでは、$A、B、V_{\odot}$で明らかな違いがあり、総じてasymmetric drift有り (with AD)はfitとtrueとの差が0に近いのに対し、asymmetric drift無し (no AD)ではfitがtrieに対して差を持っている。特に$V_{\odot}$では、星のどの年齢においてもfitの値がtrueの値よりも大きくなっている。また、年齢が大きくなるほどfitとtrueとの差が大きくなり、最大で$\SI{35}{km.s^{-1}}$大きくなっている。$A$では、年齢が大きくなるほどno ADのfitがtrueに比べて小さくなっている。$B$は8 Gyrを除いて年齢が大きくなるほどno ADのfitがtrueに比べて大きくなっている。with ADの方は、$A$、$B$共にほぼfitとtrueとが一致しているが、$B$は年齢が8.5 Gyrではno ADのfitの方がwith ADのfitよりもtrueに近い値となっている。
 
 \begin{figure*}[htbp]
 	\centering
 	\includegraphics[width=15cm]{fig/Mock_AD.pdf}
-	\caption{解析1。1000個の星の模擬データをasymmetric drift有り、無しで解析した結果。左図は各パラメータの解析結果。縦軸は各パラメータの値、横軸は模擬データに入れた速度分散に対応する年齢。trueは設定値、no ADはasymmetric driftを考慮していない解析結果、with ADはasymmetric driftを考慮した解析結果であることを示している。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。} \label{fig:Mock_AD}
+	\caption{解析1。模擬データAをasymmetric driftを考慮せずに解析した結果 (オレンジ色)とasymmetric driftを考慮して解析した結果 (青色)。縦軸は各パラメータのfit (解析で得られた値) - true (模擬データに設定した値)、横軸は模擬データに入れた速度分散に対応する年齢。} \label{fig:Mock_AD}
 \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -318,19 +390,19 @@ asymmetric driftの効果を入れた模擬データについて、asymmetric dr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{解析2: 視線速度の有無による解析結果への影響}
-解析2では、asymmetric driftを入れずに模擬データを生成し、それを視線速度を含めた尤度関数式(\ref{Likelihood_Mock})と含めない尤度関数
+解析2では、模擬データBを視線速度情報を含めた尤度関数式(\ref{Likelihood_Mock})と含めない尤度関数
 \begin{align}
 \begin{aligned}
 	\ln \mathcal{L} =& -\frac{1}{2}\sum_i \left(\frac{\left[\mu_{l,i} - \mu_l^{\mathrm{OL}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2}  + {\rm ln}\left[\sigma_{\mu_l}^2 + (s_{\mu_{l,i}})^2\right] \right. \\
 	&+ \left. \frac{\left[\mu_{b,i} - \mu_b^{\mathrm{OL}}(l_i,b_i,\varpi_i)\right]^2}{\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2}  + {\rm ln}\left[\sigma_{\mu_b}^2 + (s_{\mu_{b,i}})^2\right] \right)
 \end{aligned}
 \end{align}
-とで解析した。各パラメータの値は表\ref{table4}を用いている。asymmetric driftは模擬データ生成でも解析でも考慮していない。視線速度を含めた観測方程式(\ref{ObsEq})での解析と含めない解析との結果を比較する(\ref{fig:Mock_vlos})。右側の図を見ると、$B$だけは速度分散無しの解析の方が有りの解析よりも少し良い精度となっているが、それ以外のパラメータでは視線速度有りの方が数\%程度高い精度となっている。
+とで解析した。解析においてasymmetric driftは考慮していない。図\ref{fig:Mock_vlos}はその解析結果のプロットである。 発散を表す$K$では視線速度情報を含めた尤度関数での解析 (with vlos)の方が、含めない尤度関数での解析 (without vlos)に比べてどの年齢でもfit - trueが0に近くなっている。with vlosの方は最大でfitとtrueとの差は$\SI{0.2}{km.s^{-1}.kpc^{-1}}$程度に留まるが、without vlosの方は最大$\SI{2.0}{km.s^{-1}.kpc^{-1}}$程度、平均ではだいたい$\SI{1.0}{km.s^{-1}.kpc^{-1}}$の差がある。$K$以外のパラメータではwithout vlosとwith vlosとで大きな差はないが、太陽運動の回転方向成分$V_{\odot}$は年齢$\SI{2.8}{Gyr}$以上ではwithout vlosよりもwith vlosの方が精度が高くなっている。
 
 \begin{figure*}[htbp]
 	\centering
 	\includegraphics[width=15cm]{fig/Mock_vlos.pdf}
-	\caption{解析2。視線速度の観測方程式有りと無しで解析したときの結果の絶対誤差、相対誤差と相対誤差のlogスケール。横軸は各パラメータとなっている。視線速度有りの解析の方が無しの解析よりも精度が高いことがわかる。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。} \label{fig:Mock_vlos}
+	\caption{解析2。模擬データBを視線速度情報を使用して解析した結果 (オレンジ色)と視線速度情報を使用せずに解析した結果 (青色)。解析にasymmetric driftは考慮していない。縦軸は各パラメータのfit (解析で得られた値) - true (模擬データに設定した値)、横軸は模擬データに入れた速度分散に対応する年齢。} \label{fig:Mock_vlos}
 \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -338,7 +410,7 @@ asymmetric driftの効果を入れた模擬データについて、asymmetric dr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{解析3: 速度楕円体の傾きの解析結果への影響 \label{解析3}}
-速度楕円体を傾けた模擬データを5パターン生成し、それぞれを同じ方法で解析した。5パターンというのは、速度楕円体の傾き$0、10、20、30、40^{\circ}$の5パターンの傾け方をしているためである。具体的には、速度$v_R$と$v_{\phi}$の間の速度楕円体の傾きを$l_{R\phi}$するとき、
+模擬データB、B-VE20、B-VE40の3つの模擬データをそれぞれasymmetric driftを考慮せずに解析した。具体的には、速度$v_R$と$v_{\phi}$の間の速度楕円体の傾きを$l_{R\phi}$するとき、
 \begin{align}
 \begin{aligned}
 	\left(
@@ -364,12 +436,12 @@ asymmetric driftの効果を入れた模擬データについて、asymmetric dr
 \end{align}
 のように$\sigma_R、\sigma_{\phi}$で描かれる速度楕円体を$l_{R\phi}$だけ回転させている。
 
-図\ref{fig:Mock_VE}は速度楕円体の傾き$l_{R\phi}$を$0,10,20,30,40$度の5通りに設定した模擬データを生成し、それらをそれぞれ解析した結果である。この解析での試行回数は10回であり、10回の解析結果の値の平均値を図\ref{fig:Mock_VE}にプロットしている。また、この解析ではasymmetric driftは考慮していない。この結果では$l_{R\phi}$の値による大きな違いは見られなかった。
+図\ref{fig:Mock_VE}その解析結果である。この結果では、$l_{R\phi}$の値による大きな違いは見られない。
 
 \begin{figure*}[htbp]
 	\centering
 	\includegraphics[width=15cm]{fig/Mock_VE.pdf}
-	\caption{解析3。1000個の星の模擬データを速度楕円体の傾き$0,10,20,30,40$度で解析した結果。縦軸は各パラメータの値、横軸は模擬データに入れた速度分散に対応する年齢。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。} \label{fig:Mock_VE}
+	\caption{解析3。模擬データB、B-VE20、B-VE40をasymmetric driftを考慮せずに解析した結果。ラベルのlv = 0deg、20deg、40degはそれぞれ模擬データB、B-VE20、B-VE40の解析結果である。縦軸は各パラメータのfit (解析で得られた値) - true (模擬データに設定した値)、横軸は模擬データに入れた速度分散に対応する年齢。} \label{fig:Mock_VE}
 \end{figure*}
 
 
@@ -378,14 +450,14 @@ asymmetric driftの効果を入れた模擬データについて、asymmetric dr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{解析4: 太陽からの距離の解析結果への影響}
-解析4では、表\ref{table4}で用いている値を仮定した上で、太陽からの距離$D$の範囲を$D<\SI{300}{pc}、\SI{400}{pc}、\SI{500}{pc}、\SI{600}{pc}、\SI{700}{pc}、\SI{800}{pc}、\SI{900}{pc}、\SI{1}{kpc}$のように変えてデータを生成している。つまり、例えば$D<\SI{300}{pc}$の場合には、太陽からの距離$\SI{300}{pc}$までの中で1000個の星の位置・速度データを生成するということである。そうして生成した模擬データをそれぞれ解析し、解析結果の平均値を図\ref{fig:Mock_D}にプロットしている。得られた確率分布の標準偏差も平均値を使用している。
+解析4では、模擬データ模擬データB-D03、B-D06、Bをasymmetric driftを考慮せずに解析した。図\ref{fig:Mock_D}はその解析結果である。
 
-$D<0.3\,\mathrm{kpc}$ではオールト定数$A、B、C、K$が他のパターンに比べて精度が悪い。他の距離の範囲でも、パラメータによるが$D$が大きいほど精度が高い傾向がある。しかし、この差は決して大きい差ではなく、$D=\SI{400}{pc}$より広範囲であればあまり差はないと考えられる。
+B-D03の解析結果はB-D06、Bの解析結果に比べてどのパラメータもfitとtrueとの差が大きい。B-D06とBの解析結果ではfitとtrueとの差に大きな違いは見られない。また、年齢依存性は見られない。
 
 \begin{figure*}[htbp]
 	\centering
 	\includegraphics[width=15cm]{fig/Mock_D.pdf}
-	\caption{解析4。1000個の星の模擬データを太陽からの距離$D<0.3、0.4、0.5、0.6、0.7、0.8、0.9、1\  \mathrm{kpc}$の8パターンで生成し、解析した結果。つまり、例えば$D<\SI{0.3}{kpc}$のときには太陽からの距離$\SI{0.3}{kpc}$の内部に星1000個を生成し、それを解析した結果が$D<\SI{0.3}{kpc}$の解析結果ということである。縦軸は各パラメータの値、横軸は模擬データに入れた速度分散に対応する年齢。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。ラベルのD03は$D<0.3\,\mathrm{kpc}$、D04は$D<0.4\,\mathrm{kpc}$を意味する。} \label{fig:Mock_D}
+	\caption{解析4。模擬データB-D03、B-D06、Bをasymmetric driftを考慮せずに解析した結果。縦軸は各パラメータのfit (解析で得られた値) - true (模擬データに設定した値)、横軸は模擬データに入れた速度分散に対応する年齢。} \label{fig:Mock_D}
 \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -393,37 +465,39 @@ $D<0.3\,\mathrm{kpc}$ではオールト定数$A、B、C、K$が他のパター�
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{解析5: 円盤面からの距離の解析結果への影響}
-解析5では各パラメータの値は表\ref{table4}を用いている。asymemtric driftは模擬データにも解析にも考慮していない。図\ref{fig:Mock_z}はサンプル星の円盤面からの距離$|z|$の範囲を変えて生成した模擬データの解析結果である。つまり、$|z|=100\,\mathrm{pc}$の場合、円盤面から$100\,\mathrm{pc}$以内に星を1000個生成し、それぞれに星にOort-Lindbladモデルに従う速度を持たせ、それに観測方程式(\ref{ObsEq})を当てはめる形で解析している。。この解析結果からは$|z|$の値による大きな違いは見られず、わずかな値の違いはランダム性によるものだと考えられる。
+解析5では模擬データB-z01、B-z03、Bをasymmetric driftを考慮せずに解析した。図\ref{fig:Mock_z}はその解析結果のプロットである。この解析結果からは$|z|$の値による大きな違いは見られず、それぞれの解析結果の値の違いはランダム性によるものだと考えられる。
 
 \begin{figure*}[htbp]
 	\centering
 	\includegraphics[width=15cm]{fig/Mock_z.pdf}
-	\caption{解析5。1000個の星の模擬データを円盤面からの距離の範囲を$|z|<0.1、0.2、0.3、0.4、0.5、0.6、0.7、0.8、0.9、1\,\mathrm{kpc}$と変えて解析した結果。縦軸は各パラメータの値、横軸は模擬データに入れた速度分散に対応する年齢。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。} \label{fig:Mock_z}
+	\caption{解析5。模擬データB-z01、B-z03、Bをasymmetric driftを考慮せずに解析した結果。縦軸は各パラメータのfit (解析で得られた値) - true (模擬データに設定した値)、横軸は模擬データに入れた速度分散に対応する年齢。} \label{fig:Mock_z}
 \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{解析6:サンプル数の解析結果への影響 \label{new_N}}
-模擬データを生成する際に乱数を発生させているため、サンプル数が少なすぎるとポアソンノイズが解析結果に効いてしまうと考えられる。サンプル数の解析結果への影響を調べる上では、ポアソンノイズによる差をできるだけ排除する必要がある。そこで、サンプル数の合計値が10万になるように試行回数を調整をした。つまり、サンプル数100のときは試行回数1000、サンプル数1000のときは試行回数100としている。
-\begin{figure*}[htbp]
-	\centering
-	\includegraphics[width=15cm]{fig/Mock_N.pdf}
-	\caption{解析6。サンプル数を変えて解析したときの結果の相対誤差。横軸は各パラメータ、縦軸は模擬データ生成時に設定した値と解析結果の値との相対誤差のlogスケール。サンプル数が多いほど相対誤差が小さくなっていることがわかる。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。} \label{fig:Mock_N}
-\end{figure*}
+% \subsection{解析6:サンプル数の解析結果への影響 \label{new_N}}
+% 模擬データを生成する際に乱数を発生させているため、サンプル数が少なすぎるとポアソンノイズが解析結果に効いてしまうと考えられる。サンプル数の解析結果への影響を調べる上では、ポアソンノイズによる差をできるだけ排除する必要がある。そこで、サンプル数の合計値が10万になるように試行回数を調整をした。つまり、サンプル数100のときは試行回数1000、サンプル数1000のときは試行回数100としている。
+% \begin{figure*}[htbp]
+% 	\centering
+% 	\includegraphics[width=15cm]{fig/Mock_N.pdf}
+% 	\caption{解析6。サンプル数を変えて解析したときの結果の相対誤差。横軸は各パラメータ、縦軸は模擬データ生成時に設定した値と解析結果の値との相対誤差のlogスケール。サンプル数が多いほど相対誤差が小さくなっていることがわかる。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。} \label{fig:Mock_N}
+% \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{解析7: $R_{\odot}$の値の解析結果への影響}
+\subsection{解析6: $R_{\odot}$の値の解析結果への影響}
 オールト定数と太陽運動の測定の先行研究では、仮定されている太陽と銀河中心との距離$R_{\odot}$がそれぞれの先行研究で異なる。この値はだいたい$\SI{7.5}{kpc}$から$\SI{8.5}{kpc}$の間であり、最大約10\%の違いがある。そこで、仮定する$R_{\odot}$の値が実際の$R_{\odot}$と異なる場合にどの程度測定値を間違うのかを調べることにした。
 
-解析7では、表\ref{table4}のパラメータ値を仮定して模擬データを生成し、$R_{\odot}$の値を$R_{\odot} = 6、6.4、6.8、7.2、7.6、8.0、8.4、8.8、9.2、9.6、10\,\si{kpc}$と変えて11パターンで解析した。asymmetric driftは模擬データでも解析でも考慮している。なぜなら、$R_{\odot}$はasymmetric driftを考慮するときのみ使用するからである。具体的には式(\ref{eq142})の上から2つ目の式と式(\ref{eq153})で$R_{\odot}$を使用する。図\ref{fig:Mock_R0}は解析7の結果である。この図を見ると、オールト定数$A、B$は他のパラメータに比べ大きく間違った値となっている。右側上図の相対誤差では、模擬データで設定している値と同じ$R_{\odot}=\SI{8.2}{kpc}$のときの相対誤差が最も小さく、$R_{\odot}$の値が$\SI{8.2}{kpc}$から離れるほど相対誤差が大きくなっていることが分かる。右側下図の絶対誤差を見ると、$A、B、U_{\odot}、V_{\odot}、W_{\odot}$が解析で仮定する$R_{\odot}$によって異っていることが分かる。しかし、仮定する$R_{\odot}$への依存性は確認できない。
+解析6では、模擬データAを解析する際に$R_{\odot}$の値を$R_{\odot} = 6.2、8.2、10.2\,\si{kpc}$と変えて3パターンで解析した。解析6ではasymmetric driftを考慮している。なぜなら、$R_{\odot}$はasymmetric driftを考慮する尤度関数 (式(\ref{Likelihood_Mock_AD}))を使用するときのみに影響するからである。具体的には、式(\ref{eq142})の上から2つ目の式と式(\ref{eq153})で$R_{\odot}$を使用する。一方、asymmetric driftを考慮しない尤度関数 (式(\ref{Likelihood_Mock}))では$R_{\odot}$の値は使用しない。
+
+図\ref{fig:Mock_R0}は解析6の結果である。この図を見ると、$R_{\odot}=\SI{6.2}{kpc}、\SI{10.2}{kpc}$のときオールト定数$A、B$は大きく間違った値となっており、$R_{\odot}=\SI{8.2}{kpc}$のときのfit - trueが最も小さくなっていることがわかる。年齢依存性は確認できない。
 
 \begin{figure*}[htbp]
 	\centering
 	\includegraphics[width=15cm]{fig/Mock_R0.pdf}
-	\caption{解析7。1000個の星の模擬データを太陽の銀河中心からの距離$R_{\odot}$を$R_{\odot} = 6、6.4、6.8、7.2、7.6、8.0、8.4、8.8、9.2、9.6、10\,\si{kpc}$と変えて解析した結果。ラベルのR1は$R_{\odot}=6\,\si{kpc}$、R2は$R_{\odot}=6.4\,\si{kpc}$に対応している。縦軸は各パラメータの値、横軸は模擬データに入れた速度分散に対応する年齢。左側の図は各パラメータごとの値。右側上図は相対誤差、右側下図は絶対誤差を表している。} \label{fig:Mock_R0}
+	\caption{解析6。模擬データAを解析するときに太陽の銀河中心からの距離の仮定する値を$R_{\odot}$を$R_{\odot} = 6.2、8.2、10.2\,\si{kpc}$と変えて、asymmetric driftを考慮せずに解析した結果。縦軸は各パラメータのfit (解析で得られた値) - true (模擬データに設定した値)、横軸は模擬データに入れた速度分散に対応する年齢。} \label{fig:Mock_R0}
 \end{figure*}
